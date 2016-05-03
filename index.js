@@ -100,7 +100,7 @@ function evalMessage(recipientId, text) {
 		    pyshell = new PythonShell("my_script.py");
 
 		    pyshell.on('message', function(message) {
-		    	console.log(message);
+		    	console.log("output: " + message);
 		    });
 
 		    pyshell.end(function(err, results) {

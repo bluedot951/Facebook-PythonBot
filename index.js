@@ -31,6 +31,7 @@ app.post('/webhook', function (req, res) {
 			if (err) throw err;
 		  	// results is an array consisting of messages collected during execution
 		  	console.log('results: %j', results);
+		  	sendMessage(event.sender.id, {text: results[0]});
 		});
 
 

@@ -120,9 +120,11 @@ function evalMessage(recipientId, text) {
 		}
 
 		catch (e) {
+			console.log("in catch :(");
 			return false;
 		}
 
+		console.log("returning true!");
 		return true;
 	}
 

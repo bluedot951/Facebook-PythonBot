@@ -26,8 +26,6 @@ app.post('/webhook', function (req, res) {
 	for (i = 0; i < events.length; i++) {
 		var event = events[i];
 
-		console.log(event)
-
 		if (event.message && event.message.text) {
 			if (!kittenMessage(event.sender.id, event.message.text)) {
 				try {

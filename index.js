@@ -30,7 +30,12 @@ app.post('/webhook', function (req, res) {
 
 		if (event.message && event.message.text) {
 			if (!kittenMessage(event.sender.id, event.message.text)) {
-				sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
+				try {
+					sendMessage(event.sender.id, {text: "Echo: " + eval(event.message.text)});
+				}
+				catch (e) {
+					sendMessage(event.sender.id, {text: "Echo: sorry, your message could not be evaluated."});
+				} 
 			}
 			else if (event.postback) {
 			    console.log("Postback received: " + JSON.stringify(event.postback));

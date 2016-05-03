@@ -70,6 +70,7 @@ function evalMessage(recipientId, text) {
 
 	text = text || "";
 	var values = text.split('\n');
+	console.log("values: " + values);
 
 	var options = {}
 
@@ -77,7 +78,7 @@ function evalMessage(recipientId, text) {
 
 		var code = "";
 
-		if (values[1].split(" ") === 'args') {
+		if (values[1].split(" ")[0] === 'args') {
 			options['args'] = (values[1].substring(4)).split(" ");
 			values.splice(0,2);
 			code = values.join("\n");

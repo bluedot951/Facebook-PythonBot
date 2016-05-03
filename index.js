@@ -115,7 +115,7 @@ function evalMessage(recipientId, text) {
 	if (values[0] === 'eval') {
 
 		try {
-			sendMessage(event.sender.id, {text: "Echo: " + eval(text)});
+			sendMessage(event.sender.id, {text: "Echo: " + eval(text.substring(5))});
 			return true;
 		}
 

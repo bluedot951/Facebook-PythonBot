@@ -29,9 +29,7 @@ app.post('/webhook', function (req, res) {
 		if (event.message && event.message.text) {
 			if (!kittenMessage(event.sender.id, event.message.text)) {
 				if (!evalMessage(event.sender.id, event.message.text)) {
-					try {
-						sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-					}
+					sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
 				}
 			}
 		}

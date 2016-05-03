@@ -72,16 +72,22 @@ function evalMessage(recipientId, text) {
 
 	var options = {}
 
-	if (values[1] === 'args') {
-		options[args] = (values.substring(4)).split(" ");
-	}
-
-
 	if (values[0] === 'eval') {
 
-		console.log(text.substring(5));
+		var code = "";
 
-		fs.writeFile("my_script.py", text.substring(5), function(err) {
+		if (values[1] === 'args') {
+			options[args] = (values.substring(4)).split(" ");
+			code = values.splice(0,2);
+		}
+		else {
+			code = values.splice(0,1)
+		}
+
+
+
+
+		fs.writeFile("my_script.py", code, function(err) {
 		    if(err) {
 		    	sendMessage(recipientId, {text: "Sorry, an error occured."});
 		        console.log(err);

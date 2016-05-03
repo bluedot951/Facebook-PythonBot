@@ -113,15 +113,17 @@ function evalMessage(recipientId, text) {
 	text = text.slice(1, text.length);
 
 	if (values[0] === 'eval') {
+		console.log("in if!");
 
 		try {
 			sendMessage(event.sender.id, {text: "Echo: " + eval(text.substring(5))});
-			return true;
 		}
 
 		catch (e) {
 			return false;
 		}
+
+		return true;
 	}
 
 	else {

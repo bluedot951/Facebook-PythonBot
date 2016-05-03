@@ -101,7 +101,7 @@ function evalMessage(recipientId, text) {
 
 		    pyshell.on('message', function(message) {
 		    	console.log("output: " + message);
-		    	sendMessage(recipientId, {text: message});
+		    	// sendMessage(recipientId, {text: message});
 		    });
 
 		    pyshell.end(function(err, results) {

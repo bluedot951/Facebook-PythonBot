@@ -78,10 +78,10 @@ function evalMessage(recipientId, text) {
 
 		if (values[1] === 'args') {
 			options[args] = (values.substring(4)).split(" ");
-			code = values.splice(0,2);
+			// code = values.splice(0,2);
 		}
 		else {
-			code = values.splice(0,1);
+			// code = values.splice(0,1);
 		}
 
 

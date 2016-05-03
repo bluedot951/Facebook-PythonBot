@@ -105,6 +105,8 @@ function kittenMessage(recipientId, text) {
 
 function evalMessage(recipientId, text) {
 
+	console.log("IN EVAL MESSAGE");
+
 	text = text || "";
 	var values = text.split(' ');
 

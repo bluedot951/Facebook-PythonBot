@@ -86,7 +86,6 @@ function evalMessage(recipientId, text) {
 
 
 
-
 		fs.writeFile("my_script.py", code, function(err) {
 		    if(err) {
 		    	sendMessage(recipientId, {text: "Sorry, an error occured."});

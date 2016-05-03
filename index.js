@@ -28,12 +28,11 @@ app.post('/webhook', function (req, res) {
 
 		if (event.message && event.message.text) {
 			if (!kittenMessage(event.sender.id, event.message.text)) {
-				try {
-					sendMessage(event.sender.id, {text: "Echo: " + eval(event.message.text)});
+				if (!evalMessage(event.sender.id, event.message.text)) {
+					try {
+						sendMessage(event.sender.id, {text: "Echo: " event.message.text});
+					}
 				}
-				catch (e) {
-					sendMessage(event.sender.id, {text: "Echo: sorry, your message could not be evaluated."});
-				} 
 			}
 		}
 		else if (event.postback) {
@@ -105,3 +104,26 @@ function kittenMessage(recipientId, text) {
 	return false;
 
 };
+
+function evalMessage(recipientId, text) {
+
+	text = text || "";
+	var values = text.split(' ');
+
+	if (values[0] === 'eval') {
+
+		try {
+			sendMessage(event.sender.id, {text: "Echo: " + eval(event.message.text)});
+			return true;
+		}
+
+		catch (e) {
+			return false;
+		}
+	}
+
+	return false;
+
+};
+
+

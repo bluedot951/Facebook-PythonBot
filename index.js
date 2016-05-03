@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
+var PythonShell = require('python-shell');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -25,6 +26,13 @@ app.post('/webhook', function (req, res) {
 	var events = req.body.entry[0].messaging;
 	for (i = 0; i < events.length; i++) {
 		var event = events[i];
+
+		PythonShell.run('my_script.py', function (err, results) {
+			if (err) throw err;
+		  	// results is an array consisting of messages collected during execution
+		  	console.log('results: %j', results);
+		});
+
 
 		if (event.message && event.message.text) {
 			if (!kittenMessage(event.sender.id, event.message.text)) {

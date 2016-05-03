@@ -2,10 +2,10 @@
   "name": "fbbot",
   "version": "1.0.0",
   "description": "",
-  "main": "hello.py",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "python hello.py"
+    "start": "node index.js"
   },
   "author": "Shantanu Gore",
   "license": "ISC",

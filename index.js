@@ -70,7 +70,7 @@ function evalMessage(recipientId, text) {
 
 	if (values[0] === 'eval') {
 
-		fs.writeFile("my_script.py", "Hey there!", function(err) {
+		fs.writeFile("my_script.py", text.substring(5), function(err) {
 		    if(err) {
 		        console.log(err);
 		        return false;

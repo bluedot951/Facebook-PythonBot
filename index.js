@@ -101,6 +101,7 @@ function evalMessage(recipientId, text) {
 
 		    pyshell.on('message', function(message) {
 		    	console.log("output: " + message);
+		    	sendMessage(recipientId, {text: message});
 		    });
 
 		    pyshell.end(function(err, results) {
@@ -109,15 +110,15 @@ function evalMessage(recipientId, text) {
 						console.log(err);
 						return false;
 					}
-				  	console.log('results: %j', results);
+				  	// console.log('results: %j', results);
 
-				  	toSend = "";
+				  	// toSend = "";
 
-				  	for(q = 0; q < results.length; q++) {
-				  		toSend += results[q] + "\n";
-				  	}
+				  	// for(q = 0; q < results.length; q++) {
+				  	// 	toSend += results[q] + "\n";
+				  	// }
 
-			  		sendMessage(recipientId, {text: toSend});
+			  		// sendMessage(recipientId, {text: toSend});
 
 				  	return true;		    
 			});

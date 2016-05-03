@@ -97,8 +97,13 @@ function evalMessage(recipientId, text) {
 		        return false;
 		    }
 
+		    pyshell = new PythonShell("my_script.py");
 
-			PythonShell.run('my_script.py', options, function (err, results) {
+		    pyshell.on('message', function(message) {
+		    	console.log(message);
+		    });
+
+		    pyshell.end(function(err, results) {
 					if (err) {
 						sendMessage(recipientId, {text: "Sorry, an error occured."});
 						console.log(err);
@@ -114,8 +119,10 @@ function evalMessage(recipientId, text) {
 
 			  		sendMessage(recipientId, {text: toSend});
 
-				  	return true;
+				  	return true;		    
 			});
+
+
 		});
 	}
 

@@ -86,6 +86,8 @@ function evalMessage(recipientId, text) {
 			// code = values.splice(0,1);
 		}
 
+		console.log("CODE: " + code);
+
 
 
 		fs.writeFile("my_script.py", code, function(err) {

@@ -35,10 +35,11 @@ app.post('/webhook', function (req, res) {
 					sendMessage(event.sender.id, {text: "Echo: sorry, your message could not be evaluated."});
 				} 
 			}
-			else if (event.postback) {
-			    console.log("Postback received: " + JSON.stringify(event.postback));
-			}
 		}
+		else if (event.postback) {
+			console.log("Postback received: " + JSON.stringify(event.postback));
+		}
+
 	}
 	res.sendStatus(200);
 });

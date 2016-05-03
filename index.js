@@ -68,7 +68,14 @@ function evalMessage(recipientId, text) {
 	console.log("IN EVAL MESSAGE");
 
 	text = text || "";
-	var values = text.split(' ');
+	var values = text.split('\n');
+
+	var options = {}
+
+	if (values[1] === 'args') {
+		options = (values.substring(4)).split(" ");
+	}
+
 
 	if (values[0] === 'eval') {
 
@@ -80,7 +87,7 @@ function evalMessage(recipientId, text) {
 		    }
 
 
-			PythonShell.run('my_script.py', function (err, results) {
+			PythonShell.run('my_script.py', options, function (err, results) {
 					if (err) {
 						sendMessage(recipientId, {text: "Sorry, an error occured."});
 						console.log(err);

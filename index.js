@@ -106,7 +106,7 @@ function evalMessage(recipientId, text) {
 
 		    pyshell.end(function(err, results) {
 					if (err) {
-						sendMessage(recipientId, {text: "Sorry, an error occured."});
+						// sendMessage(recipientId, {text: "Sorry, an error occured."});
 						console.log(err);
 						return false;
 					}

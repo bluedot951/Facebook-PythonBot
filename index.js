@@ -66,6 +66,7 @@ function sendMessage(recipientId, message) {
 function evalMessage(recipientId, text) {
 
 	console.log("IN EVAL MESSAGE");
+	console.log("test: " + text);
 
 	text = text || "";
 	var values = text.split('\n');
@@ -77,7 +78,7 @@ function evalMessage(recipientId, text) {
 		var code = "";
 
 		if (values[1] === 'args') {
-			options[args] = (values.substring(4)).split(" ");
+			options['args'] = (values.substring(4)).split(" ");
 			values.splice(0,2);
 			code = values.join("\n");
 			// code = values.splice(0,2);

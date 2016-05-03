@@ -83,31 +83,10 @@ function evalMessage(recipientId, text) {
 						return false;
 					}
 				  	console.log('results: %j', results);
-				  	sendMessage(recipientId, {text: results[0]});
+				  	sendMessage(recipientId, {text: results});
 				  	return true;
 			});
-		}); 
-
-
-
-
-
-
-		// console.log("in if!");
-
-		// var toSend;
-
-		// try {
-		// 	toSend = eval(text.substring(5));
-		// }
-		// catch (e) {
-		// 	console.log("in catch :(");
-		// 	return false;
-		// }
-
-		// sendMessage(recipientId, {text: ("Echo: " + toSend)});
-		// console.log("returning true!");
-		// return true;
+		});
 	}
 
 	else {

@@ -90,8 +90,6 @@ function evalMessage(recipientId, text) {
 
 		console.log("CODE: " + code);
 
-
-
 		fs.writeFile("my_script.py", code, function(err) {
 		    if(err) {
 		    	sendMessage(recipientId, {text: "Sorry, an error occured."});

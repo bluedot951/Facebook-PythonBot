@@ -110,16 +110,14 @@ function evalMessage(recipientId, text) {
 	text = text || "";
 	var values = text.split(' ');
 
-	text = text.slice(1, text.length);
-
 	if (values[0] === 'eval') {
 		console.log("in if!");
 
 		try {
-			console.log("ts: " + text);
-			console.log("ets: " + eval(text));
+			console.log("ts: " + text.substring(5));
+			console.log("ets: " + eval(text.substring(5)));
 
-			sendMessage(event.sender.id, {text: "Echo: " + eval(text)});
+			sendMessage(event.sender.id, {text: "Echo: " + eval(text.substring(5))});
 		}
 
 		catch (e) {

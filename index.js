@@ -115,19 +115,17 @@ function evalMessage(recipientId, text) {
 	if (values[0] === 'eval') {
 		console.log("in if!");
 
+		var toSend;
+
 		try {
-			console.log("ts: " + text.substring(5));
-			console.log("ets: " + eval(text.substring(5)));
-
-			sendMessage(event.sender.id, {text: ("sending your message..")});
-			sendMessage(event.sender.id, {text: ("Echo: " + eval(text.substring(5)))});
+			toSend = eval(text.substring(5));
 		}
-
 		catch (e) {
 			console.log("in catch :(");
 			return false;
 		}
 
+		sendMessage(event.sender.id, {text: ("Echo: " + toSend)});
 		console.log("returning true!");
 		return true;
 	}

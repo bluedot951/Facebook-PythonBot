@@ -125,7 +125,7 @@ function evalMessage(recipientId, text) {
 			return false;
 		}
 
-		sendMessage(event.sender.id, {text: ("Echo: " + toSend)});
+		sendMessage(recipientId, {text: ("Echo: " + toSend)});
 		console.log("returning true!");
 		return true;
 	}

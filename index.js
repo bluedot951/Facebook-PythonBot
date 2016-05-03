@@ -82,12 +82,10 @@ function evalMessage(recipientId, text) {
 			options['args'] = (values[1].substring(5)).split(" ");
 			values.splice(0,2);
 			code = values.join("\n");
-			// code = values.splice(0,2);
 		}
 		else {
 			values.splice(0,1);
 			code = values.join("\n");
-			// code = values.splice(0,1);
 		}
 
 		console.log("CODE: " + code);

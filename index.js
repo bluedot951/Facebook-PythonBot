@@ -42,6 +42,8 @@ app.post('/webhook', function (req, res) {
 });
 
 function sendMessage(recipientId, message) {
+	console.log("in send message!");
+
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
@@ -117,7 +119,7 @@ function evalMessage(recipientId, text) {
 			console.log("ts: " + text.substring(5));
 			console.log("ets: " + eval(text.substring(5)));
 
-			sendMessage(event.sender.id, {text: "Echo: " + eval(text.substring(5))});
+			sendMessage(event.sender.id, {text: ("Echo: " + eval(text.substring(5)))});
 		}
 
 		catch (e) {

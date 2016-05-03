@@ -79,7 +79,7 @@ function evalMessage(recipientId, text) {
 		var code = "";
 
 		if (values[1].split(" ")[0] === 'args') {
-			options['args'] = (values[1].substring(4)).split(" ");
+			options['args'] = (values[1].substring(5)).split(" ");
 			values.splice(0,2);
 			code = values.join("\n");
 			// code = values.splice(0,2);

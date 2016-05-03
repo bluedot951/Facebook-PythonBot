@@ -81,7 +81,7 @@ function evalMessage(recipientId, text) {
 			code = values.splice(0,2);
 		}
 		else {
-			code = values.splice(0,1)
+			code = values.splice(0,1);
 		}
 
 

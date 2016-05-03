@@ -27,15 +27,15 @@ app.post('/webhook', function (req, res) {
 	for (i = 0; i < events.length; i++) {
 		var event = events[i];
 
-		PythonShell.run('my_script.py', function (err, results) {
-			if (err) throw err;
-		  	// results is an array consisting of messages collected during execution
-		  	console.log('results: %j', results);
-		  	sendMessage(event.sender.id, {text: results[0]});
-		});
-
-
 		if (event.message && event.message.text) {
+			PythonShell.run('my_script.py', function (err, results) {
+				if (err) throw err;
+			  	// results is an array consisting of messages collected during execution
+			  	console.log('results: %j', results);
+			  	sendMessage(event.sender.id, {text: results[0]});
+			});
+
+			
 			if (!kittenMessage(event.sender.id, event.message.text)) {
 				if (!evalMessage(event.sender.id, event.message.text)) {
 					sendMessage(event.sender.id, {text: "Echo: " + event.message.text});

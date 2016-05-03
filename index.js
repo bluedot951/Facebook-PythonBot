@@ -122,6 +122,10 @@ function evalMessage(recipientId, text) {
 		}
 	}
 
+	else {
+		console.log(values);
+	}
+
 	return false;
 
 };

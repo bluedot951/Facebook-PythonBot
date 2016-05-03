@@ -83,7 +83,7 @@ function evalMessage(recipientId, text) {
 						return false;
 					}
 				  	console.log('results: %j', results);
-				  	sendMessage(event.sender.id, {text: results[0]});
+				  	sendMessage(recipientId, {text: results[0]});
 				  	return true;
 			});
 		}); 

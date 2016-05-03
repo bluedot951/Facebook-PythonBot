@@ -79,6 +79,8 @@ function evalMessage(recipientId, text) {
 
 	if (values[0] === 'eval') {
 
+		console.log(text.substring(5));
+
 		fs.writeFile("my_script.py", text.substring(5), function(err) {
 		    if(err) {
 		    	sendMessage(recipientId, {text: "Sorry, an error occured."});

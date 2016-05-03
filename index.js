@@ -110,10 +110,12 @@ function evalMessage(recipientId, text) {
 	text = text || "";
 	var values = text.split(' ');
 
+	text = text.slice(1, text.length);
+
 	if (values[0] === 'eval') {
 
 		try {
-			sendMessage(event.sender.id, {text: "Echo: " + eval(event.message.text)});
+			sendMessage(event.sender.id, {text: "Echo: " + eval(text)});
 			return true;
 		}
 

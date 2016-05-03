@@ -29,9 +29,9 @@ app.post('/webhook', function (req, res) {
 		var event = events[i];
 
 		if (event.message && event.message.text) {
-			if (!evalMessage(event.sender.id, event.message.text)) {
-				sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-			}
+			// if (!evalMessage(event.sender.id, event.message.text)) {
+			sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
+			// }
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));
@@ -72,6 +72,7 @@ function evalMessage(recipientId, text) {
 
 		fs.writeFile("my_script.py", text.substring(5), function(err) {
 		    if(err) {
+		    	sendMessage(recipientId, {text: "Sorry, an error occured."});
 		        console.log(err);
 		        return false;
 		    }
@@ -79,6 +80,7 @@ function evalMessage(recipientId, text) {
 
 			PythonShell.run('my_script.py', function (err, results) {
 					if (err) {
+						sendMessage(recipientId, {text: "Sorry, an error occured."});
 						console.log(err);
 						return false;
 					}

@@ -119,6 +119,7 @@ function evalMessage(recipientId, text) {
 			console.log("ts: " + text.substring(5));
 			console.log("ets: " + eval(text.substring(5)));
 
+			sendMessage(event.sender.id, {text: ("sending your message..")});
 			sendMessage(event.sender.id, {text: ("Echo: " + eval(text.substring(5)))});
 		}
 

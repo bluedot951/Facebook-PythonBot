@@ -36,7 +36,9 @@ app.post('/webhook', function (req, res) {
 			var infoArr = getCode(event.message.text);
 			console.log("infoArr below.");
 			console.log(infoArr);
-			sendMessage(event.sender.id, "You entered the following code:\n```python+\n" + infoArr[0]);
+			var toSend = "You entered the following code:\n```python+\n" + infoArr[0];
+			console.log(toSend);
+			sendMessage(event.sender.id, toSend);
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));

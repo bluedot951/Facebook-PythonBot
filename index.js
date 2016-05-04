@@ -99,7 +99,7 @@ function evalMessage(recipientId, text) {
 
 		    pyshell = new PythonShell("my_script.py");
 
-		    pyshell.recieve(function(data) {
+		    pyshell.receive(function(data) {
 		    	console.log("data: " + data);
 		    })
 

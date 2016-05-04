@@ -150,6 +150,8 @@ function evalMessage(recipientId, text) {
 };
 
 function evalCode(code, options, recipientId) {
+	sendMessage(recipientId, {text: "```python\n" + code});
+
 	console.log("CODE: " + code);
 
 	fs.writeFile("my_script.py", code, function(err) {

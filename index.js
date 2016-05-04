@@ -195,14 +195,14 @@ function evalMessage(recipientId, text) {
 
 };
 
-function evalCode(code, options, recipientId, callback) {
+function evalCode(code, options, callback) {
 	// sendMessage(recipientId, {text: "Evaluating the following Python code:\n```python\n" + code});
 
 	console.log("CODE: " + code);
 
 	fs.writeFile("my_script.py", code, function(err) {
 		if(err) {
-			sendMessage(recipientId, {text: "Sorry, an error occured."});
+			// sendMessage(recipientId, {text: "Sorry, an error occured."});
 		    console.log(err);
 		    return "";
 		}
@@ -213,7 +213,7 @@ function evalCode(code, options, recipientId, callback) {
 			var toSend = "inside run";
 
 			if (err) {
-				sendMessage(recipientId, {text: "Sorry, an error occured."});
+				// sendMessage(recipientId, {text: "Sorry, an error occured."});
 				console.log(err);
 				return "";
 			}

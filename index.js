@@ -18,7 +18,7 @@ var prevCode = {};
 var toEvaluate = {};
 
 // Facebook Webhook
-app.get('/webhook', function (req, res) {
+app.get('/webhook', function (req, res) {;
 	if (req.query['hub.verify_token'] === 'testbot_verify_token') {
 		res.send(req.query['hub.challenge']);
 	} else {
@@ -33,7 +33,8 @@ app.post('/webhook', function (req, res) {
 
 		if (event.message && event.message.text) {
 			// evalMessage(event.sender.id, event.message.text);
-			sendMessage(event.sender.id, "You entered the following code:\n" + )
+			var infoArr = getCode[event.message.text]
+			sendMessage(event.sender.id, "You entered the following code:\n```python+\n" + infoArr[0]);
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));

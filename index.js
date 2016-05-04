@@ -14,6 +14,8 @@ app.get('/', function (req, res) {
 	res.send('This is TestBot Server');
 });
 
+prevCode = {}
+
 // Facebook Webhook
 app.get('/webhook', function (req, res) {
 	if (req.query['hub.verify_token'] === 'testbot_verify_token') {
@@ -37,6 +39,7 @@ app.post('/webhook', function (req, res) {
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));
+			console.log(prevCode[event.postback]);
 		}
 
 	}
@@ -166,6 +169,7 @@ function evalCode(code, options, recipientId) {
 		  	}
 
 	  		sendMessage(recipientId, {text: toSend});
+	  		prevCode[recipientId] = (code, options);
 	  		sendStructuredMessage(recipientId);
 
 		  	return true;

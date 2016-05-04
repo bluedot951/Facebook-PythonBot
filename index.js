@@ -43,7 +43,7 @@ app.post('/webhook', function (req, res) {
 			console.log("postback: " + JSON.stringify(event.postback));
 			console.log("payload: " + event.postback['payload']);
 			console.log("in prevCode: " + prevCode[event.postback['payload']]);
-			evalCode(prevCode[event.postback['payload']], {}, parseInt(JSON.stringify(event.postback)));
+			evalCode(prevCode[event.postback['payload']], {}, parseInt(event.postback['payload']));
 		}
 
 	}

@@ -243,6 +243,8 @@ function evalCode(code, options, recipientId) {
 		});
 	});
 
+	return "outsde of func!";
+
 }
 
 

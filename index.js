@@ -29,7 +29,7 @@ app.post('/webhook', function (req, res) {
 		var event = events[i];
 
 		if (event.message && event.message.text) {
-			// if (!evalMessage(event.sender.id, event.message.text)) {
+  			// if (!evalMessage(event.sender.id, event.message.text)) {
 			// sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
 			// }
 
@@ -128,77 +128,8 @@ function evalMessage(recipientId, text) {
 			code = values.join("\n");
 		}
 
-		console.log("CODE: " + code);
+		evalCode(code, options);
 
-		fs.writeFile("my_script.py", code, function(err) {
-		    if(err) {
-		    	sendMessage(recipientId, {text: "Sorry, an error occured."});
-		        console.log(err);
-		        return false;
-		    }
-
-
-			PythonShell.run('my_script.py', options, function (err, results) {
-					if (err) {
-						sendMessage(recipientId, {text: "Sorry, an error occured."});
-						console.log(err);
-						return false;
-					}
-				  	console.log('results: %j', results);
-
-				  	toSend = "";
-
-				  	for(q = 0; q < results.length; q++) {
-				  		toSend += results[q] + "\n";
-				  	}
-
-			  		sendMessage(recipientId, {text: toSend});
-			  		sendStructuredMessage(recipientId);
-
-				  	return true;
-			});
-		});
-
-		// Work in progress: send output as we receive it
-		// fs.writeFile("my_script.py", code, function(err) {
-		//     if(err) {
-		//     	sendMessage(recipientId, {text: "Sorry, an error occured."});
-		//         console.log(err);
-		//         return false;
-		//     }
-
-		//     pyshell = new PythonShell("my_script.py");
-
-		//     // pyshell.prototype.receive(function(data) {
-		//     // 	console.log("data: " + data);
-		//     // })
-
-		//     pyshell.on('message', function(message) {
-		//     	console.log("output: " + message);
-		//     	// sendMessage(recipientId, {text: message});
-		//     });
-
-		//     pyshell.end(function(err, results) {
-		// 			if (err) {
-		// 				// sendMessage(recipientId, {text: "Sorry, an error occured."});
-		// 				console.log(err);
-		// 				return false;
-		// 			}
-		// 		  	// console.log('results: %j', results);
-
-		// 		  	// toSend = "";
-
-		// 		  	// for(q = 0; q < results.length; q++) {
-		// 		  	// 	toSend += results[q] + "\n";
-		// 		  	// }
-
-		// 	  		// sendMessage(recipientId, {text: toSend});
-
-		// 		  	return true;		    
-		// 	});
-
-
-		// });
 	}
 
 	else {
@@ -208,5 +139,39 @@ function evalMessage(recipientId, text) {
 	return false;
 
 };
+
+function evalCode(code, options) {
+	console.log("CODE: " + code);
+
+	fs.writeFile("my_script.py", code, function(err) {
+		if(err) {
+			sendMessage(recipientId, {text: "Sorry, an error occured."});
+		    console.log(err);
+		    return false;
+		}
+
+
+		PythonShell.run('my_script.py', options, function (err, results) {
+			if (err) {
+				sendMessage(recipientId, {text: "Sorry, an error occured."});
+				console.log(err);
+				return false;
+			}
+		  	console.log('results: %j', results);
+
+		  	toSend = "";
+
+		  	for(q = 0; q < results.length; q++) {
+		  		toSend += results[q] + "\n";
+		  	}
+
+	  		sendMessage(recipientId, {text: toSend});
+	  		sendStructuredMessage(recipientId);
+
+		  	return true;
+		});
+	});
+
+}
 
 

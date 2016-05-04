@@ -36,7 +36,7 @@ app.post('/webhook', function (req, res) {
 			var infoArr = getCode(event.message.text);
 			console.log("infoArr below.");
 			console.log(infoArr);
-			var toSend = "You entered the following code:\n```python+\n" + infoArr[0];
+			var toSend = "You entered the following code:\n```python\n" + infoArr[0];
 			console.log(toSend);
 			sendMessage(event.sender.id, toSend);
 		}
@@ -97,6 +97,8 @@ function sendStructuredMessage(recipientId) {
 function sendMessage(recipientId, message) {
 	console.log("in send message! Sending message to:");
 	console.log(recipientId);
+	console.log("message to be sent:");
+	console.log(message);
 
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',

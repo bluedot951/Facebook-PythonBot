@@ -183,7 +183,7 @@ function getCode(text) {
 		return [code, options];
 
 	}
-=
+
 	return [];
 }
 

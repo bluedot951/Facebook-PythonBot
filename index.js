@@ -50,26 +50,17 @@ function sendStructuredMessage(recipientId) {
 	      "payload": {
 	        "template_type": "generic",
 	        "elements": [{
-	          "title": "First card",
+	          "title": "Evaluation complete!",
 	          "subtitle": "Element #1 of an hscroll",
 	          "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
 	          "buttons": [{
-	            "type": "web_url",
-	            "url": "https://www.messenger.com/",
-	            "title": "Web url"
+	            "type": "postback",
+	            "title": "Reevaluate",
+	            "payload": "Subtitle"
 	          }, {
 	            "type": "postback",
-	            "title": "Postback",
-	            "payload": "Payload for first element in a generic bubble",
-	          }],
-	        },{
-	          "title": "Second card",
-	          "subtitle": "Element #2 of an hscroll",
-	          "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-	          "buttons": [{
-	            "type": "postback",
-	            "title": "Postback",
-	            "payload": "Payload for second element in a generic bubble",
+	            "title": "Reevaluate with options",
+	            "payload": "Subtitle",
 	          }],
 	        }]
 	      }

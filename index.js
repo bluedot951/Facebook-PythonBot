@@ -48,7 +48,7 @@ app.post('/webhook', function (req, res) {
 				console.log("webhook...output: " + output);
 				console.log("---webhook...output");
 
-				sendMessage(event.sender.id, processOutput);	
+				sendMessage(event.sender.id, output);	
 			});
 
 			// prevCode[event.sender.id + ""] = [code, args];

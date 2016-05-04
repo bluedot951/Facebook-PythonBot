@@ -43,7 +43,8 @@ app.post('/webhook', function (req, res) {
 			console.log("postback: " + JSON.stringify(event.postback));
 			console.log("payload: " + event.postback['payload']);
 			console.log("in prevCode: " + prevCode[event.postback['payload']]);
-			evalCode(prevCode[event.postback['payload']], {}, parseInt(event.postback['payload']));
+			infoArr = prevCode[event.postback['payload']];
+			evalCode(arr[0], arr[1], parseInt(event.postback['payload']));
 		}
 
 	}
@@ -174,7 +175,7 @@ function evalCode(code, options, recipientId) {
 		  	}
 
 	  		sendMessage(recipientId, {text: toSend});
-	  		prevCode[recipientId+""] = code;
+	  		prevCode[recipientId+""] = [code, options];
 	  		console.log(prevCode);
 	  		console.log(recipientId);
 	  		sendStructuredMessage(recipientId);

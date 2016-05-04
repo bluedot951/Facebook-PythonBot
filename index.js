@@ -128,7 +128,7 @@ function evalMessage(recipientId, text) {
 			code = values.join("\n");
 		}
 
-		evalCode(code, options);
+		evalCode(code, options, recipientId);
 
 	}
 
@@ -140,7 +140,7 @@ function evalMessage(recipientId, text) {
 
 };
 
-function evalCode(code, options) {
+function evalCode(code, options, recipientId) {
 	console.log("CODE: " + code);
 
 	fs.writeFile("my_script.py", code, function(err) {

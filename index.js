@@ -48,7 +48,7 @@ app.post('/webhook', function (req, res) {
 				console.log("webhook...output: " + output);
 				console.log("---webhook...output");
 
-				sendMessage(output, event.sender.id);	
+				sendMessage(event.sender.id, output);	
 			});
 
 			// prevCode[event.sender.id + ""] = [code, args];
@@ -139,7 +139,7 @@ function sendMessage(recipientId, message) {
 		method: 'POST',
 		json: {
 			recipient: {id: recipientId},
-			message: "sdfaisdfakjsfda",
+			message: message,
 		}
 	};
 

@@ -41,8 +41,8 @@ app.post('/webhook', function (req, res) {
 			console.log("Postback received: " + JSON.stringify(event.postback));
 			console.log(prevCode);
 			console.log("postback: " + JSON.stringify(event.postback));
-			console.log("payload: " + JSON.stringify(event.postback['payload']));
-			console.log("in prevCode: " + prevCode[JSON.stringify(event.postback['payload'])]);
+			console.log("payload: " + event.postback['payload']);
+			console.log("in prevCode: " + prevCode[event.postback['payload']]);
 		}
 
 	}

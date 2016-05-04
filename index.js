@@ -47,6 +47,8 @@ app.post('/webhook', function (req, res) {
 			evalCode(code, args, function processOutput(output) {
 				console.log("webhook...output: " + output);
 				console.log("---webhook...output");
+
+				sendMessage(output, recipientId);
 			});
 
 			// prevCode[event.sender.id + ""] = [code, args];

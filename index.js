@@ -15,6 +15,7 @@ app.get('/', function (req, res) {
 });
 
 var prevCode = {};
+var toEvaluate = {};
 
 // Facebook Webhook
 app.get('/webhook', function (req, res) {
@@ -31,11 +32,8 @@ app.post('/webhook', function (req, res) {
 		var event = events[i];
 
 		if (event.message && event.message.text) {
-  			// if (!evalMessage(event.sender.id, event.message.text)) {
-			// sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-			// }
-
-			evalMessage(event.sender.id, event.message.text);
+			// evalMessage(event.sender.id, event.message.text);
+			sendMessage(event.sender.id, "You entered the following code:\n" + )
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));
@@ -112,9 +110,9 @@ function sendMessage(recipientId, message) {
 	});
 };
 
-function evalMessage(recipientId, text) {
-
-	console.log("IN EVAL MESSAGE");
+// takes in text, including eval and perhaps args ___ .
+function getCode(text) {
+	console.log("IN getCode");
 	console.log("text: " + text);
 
 	text = text || "";
@@ -137,15 +135,22 @@ function evalMessage(recipientId, text) {
 			code = values.join("\n");
 		}
 
-		evalCode(code, options, recipientId);
+		return [code, options];
 
 	}
 
 	else {
-		console.log(values);
+		return [];
 	}
 
-	return false;
+	return [];
+}
+
+function evalMessage(recipientId, text) {
+	infoArr = getCode(text);
+	code = infoArr[0];
+	options = infoArr[1];
+	evalCode(code, options, recipientId);
 
 };
 

@@ -31,17 +31,23 @@ app.post('/webhook', function (req, res) {
 		var event = events[i];
 
 		if (event.message && event.message.text) {
+			console.log("in webhook.event.message...");
+
 			var infoArr = getCode(event.message.text);
 			var code = infoArr[0];
 			var args = infoArr[1];
 
 			console.log("webhook...code: " + code);
+			console.log("----webhook...code")
 			console.log("webhook...args: ");
 			console.log(args);
-			console.log("-----------------")
+			console.log("----webhook...args")
 
 
-			// var output = evalCode(code, args);
+			var output = evalCode(code, args);
+
+			console.log("webhook...output: " + output);
+			console.log("---webhook...output");
 
 			// prevCode[event.sender.id + ""] = [code, args];
 
@@ -53,7 +59,7 @@ app.post('/webhook', function (req, res) {
 
 
 
-			
+
 
 			// evalMessage(event.sender.id, event.message.text);
 			// console.log("calling getCode from webhook");
@@ -194,7 +200,7 @@ function evalMessage(recipientId, text) {
 };
 
 function evalCode(code, options, recipientId) {
-	sendMessage(recipientId, {text: "Evaluating the following Python code:\n```python\n" + code});
+	// sendMessage(recipientId, {text: "Evaluating the following Python code:\n```python\n" + code});
 
 	console.log("CODE: " + code);
 
@@ -202,7 +208,7 @@ function evalCode(code, options, recipientId) {
 		if(err) {
 			sendMessage(recipientId, {text: "Sorry, an error occured."});
 		    console.log(err);
-		    return false;
+		    return "";
 		}
 
 
@@ -210,7 +216,7 @@ function evalCode(code, options, recipientId) {
 			if (err) {
 				sendMessage(recipientId, {text: "Sorry, an error occured."});
 				console.log(err);
-				return false;
+				return "";
 			}
 		  	console.log('results: %j', results);
 
@@ -220,13 +226,15 @@ function evalCode(code, options, recipientId) {
 		  		toSend += results[q] + "\n";
 		  	}
 
-	  		sendMessage(recipientId, {text: toSend});
-	  		prevCode[recipientId+""] = [code, options];
-	  		console.log(prevCode);
-	  		console.log(recipientId);
-	  		sendStructuredMessage(recipientId);
+		  	return toSend;
 
-		  	return true;
+	  		// sendMessage(recipientId, {text: toSend});
+	  		// prevCode[recipientId+""] = [code, options];
+	  		// console.log(prevCode);
+	  		// console.log(recipientId);
+	  		// sendStructuredMessage(recipientId);
+
+		  	// return true;
 		});
 	});
 

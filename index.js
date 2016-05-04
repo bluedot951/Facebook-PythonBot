@@ -33,6 +33,7 @@ app.post('/webhook', function (req, res) {
 
 		if (event.message && event.message.text) {
 			// evalMessage(event.sender.id, event.message.text);
+			console.log("calling getCode from webhook");
 			var infoArr = getCode(event.message.text);
 			console.log("infoArr below.");
 			console.log(infoArr);

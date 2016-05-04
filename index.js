@@ -15,7 +15,6 @@ app.get('/', function (req, res) {
 });
 
 var prevCode = {};
-var toEvaluate = {};
 
 // Facebook Webhook
 app.get('/webhook', function (req, res) {;
@@ -32,15 +31,39 @@ app.post('/webhook', function (req, res) {
 		var event = events[i];
 
 		if (event.message && event.message.text) {
-			// evalMessage(event.sender.id, event.message.text);
-			console.log("calling getCode from webhook");
 			var infoArr = getCode(event.message.text);
-			console.log("infoArr below.");
-			console.log(infoArr);
-			var toSend = "You entered the following code:\n```python\n" + infoArr[0];
-			console.log(toSend);
-			sendMessage(event.sender.id, "toSend");
-			console.log("Message sent!");
+			var code = infoArr[0];
+			var args = infoArr[1];
+
+			console.log("webhook...code: " + code);
+			console.log("webhook...args: ");
+			console.log(args);
+			console.log("-----------------")
+
+
+			// var output = evalCode(code, args);
+
+			// prevCode[event.sender.id + ""] = [code, args];
+
+			// sendMessage(output, recipientId);
+			// sendStructuredMessage(recipientId);
+
+
+
+
+
+
+			
+
+			// evalMessage(event.sender.id, event.message.text);
+			// console.log("calling getCode from webhook");
+			// var infoArr = getCode(event.message.text);
+			// console.log("infoArr below.");
+			// console.log(infoArr);
+			// var toSend = "You entered the following code:\n```python\n" + infoArr[0];
+			// console.log(toSend);
+			// sendMessage(event.sender.id, "toSend");
+			// console.log("Message sent!");
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));

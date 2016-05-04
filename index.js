@@ -214,6 +214,8 @@ function evalCode(code, options, recipientId) {
 		var toSend = "before running...";
 
 		PythonShell.run('my_script.py', options, function (err, results) {
+			var toSend = "inside run";
+
 			if (err) {
 				sendMessage(recipientId, {text: "Sorry, an error occured."});
 				console.log(err);

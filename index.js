@@ -157,7 +157,7 @@ function evalMessage(recipientId, text) {
 		// 	});
 
 
-		});
+		// });
 	}
 
 	else {

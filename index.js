@@ -97,35 +97,64 @@ function evalMessage(recipientId, text) {
 		        return false;
 		    }
 
-		    pyshell = new PythonShell("my_script.py");
 
-		    pyshell.prototype.receive(function(data) {
-		    	console.log("data: " + data);
-		    })
-
-		    // pyshell.on('message', function(message) {
-		    // 	console.log("output: " + message);
-		    // 	// sendMessage(recipientId, {text: message});
-		    // });
-
-		    pyshell.end(function(err, results) {
+			PythonShell.run('my_script.py', options, function (err, results) {
 					if (err) {
-						// sendMessage(recipientId, {text: "Sorry, an error occured."});
+						sendMessage(recipientId, {text: "Sorry, an error occured."});
 						console.log(err);
 						return false;
 					}
-				  	// console.log('results: %j', results);
+				  	console.log('results: %j', results);
 
-				  	// toSend = "";
+				  	toSend = "";
 
-				  	// for(q = 0; q < results.length; q++) {
-				  	// 	toSend += results[q] + "\n";
-				  	// }
+				  	for(q = 0; q < results.length; q++) {
+				  		toSend += results[q] + "\n";
+				  	}
 
-			  		// sendMessage(recipientId, {text: toSend});
+			  		sendMessage(recipientId, {text: toSend});
 
-				  	return true;		    
+				  	return true;
 			});
+		});
+
+		// Work in progress: send output as we receive it
+		// fs.writeFile("my_script.py", code, function(err) {
+		//     if(err) {
+		//     	sendMessage(recipientId, {text: "Sorry, an error occured."});
+		//         console.log(err);
+		//         return false;
+		//     }
+
+		//     pyshell = new PythonShell("my_script.py");
+
+		//     // pyshell.prototype.receive(function(data) {
+		//     // 	console.log("data: " + data);
+		//     // })
+
+		//     pyshell.on('message', function(message) {
+		//     	console.log("output: " + message);
+		//     	// sendMessage(recipientId, {text: message});
+		//     });
+
+		//     pyshell.end(function(err, results) {
+		// 			if (err) {
+		// 				// sendMessage(recipientId, {text: "Sorry, an error occured."});
+		// 				console.log(err);
+		// 				return false;
+		// 			}
+		// 		  	// console.log('results: %j', results);
+
+		// 		  	// toSend = "";
+
+		// 		  	// for(q = 0; q < results.length; q++) {
+		// 		  	// 	toSend += results[q] + "\n";
+		// 		  	// }
+
+		// 	  		// sendMessage(recipientId, {text: toSend});
+
+		// 		  	return true;		    
+		// 	});
 
 
 		});

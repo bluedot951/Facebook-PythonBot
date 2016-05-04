@@ -55,11 +55,7 @@ function sendStructuredMessage(recipientId) {
 	          "buttons": [{
 	            "type": "postback",
 	            "title": "Reevaluate",
-	            "payload": "Subtitle"
-	          }, {
-	            "type": "postback",
-	            "title": "Reevaluate with options",
-	            "payload": "Subtitle",
+	            "payload": recipientId
 	          }],
 	        }]
 	      }

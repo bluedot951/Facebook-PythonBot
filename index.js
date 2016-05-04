@@ -204,7 +204,7 @@ function evalCode(code, options, recipientId) {
 
 	console.log("CODE: " + code);
 
-	fs.writeFile("my_script.py", code, function(err) {
+	return fs.writeFile("my_script.py", code, function(err) {
 		if(err) {
 			sendMessage(recipientId, {text: "Sorry, an error occured."});
 		    console.log(err);
@@ -213,7 +213,7 @@ function evalCode(code, options, recipientId) {
 
 		var toSend = "before running...";
 
-		PythonShell.run('my_script.py', options, function (err, results) {
+		return PythonShell.run('my_script.py', options, function (err, results) {
 			var toSend = "inside run";
 
 			if (err) {
@@ -242,8 +242,6 @@ function evalCode(code, options, recipientId) {
 		  	// return true;
 		});
 	});
-
-	return "outsde of func!";
 
 }
 

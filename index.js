@@ -91,7 +91,8 @@ function sendStructuredMessage(recipientId) {
 
 
 function sendMessage(recipientId, message) {
-	console.log("in send message!");
+	console.log("in send message! Sending message to:");
+	console.log(recipientId);
 
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',

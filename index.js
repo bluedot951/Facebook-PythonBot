@@ -40,8 +40,8 @@ app.post('/webhook', function (req, res) {
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));
 			console.log("prevCode in postback: " + prevCode);
-			console.log("postback: " + event.postback);
-			console.log(prevCode[event.postback]);
+			console.log("postback: " + JSON.stringify(event.postback));
+			console.log(prevCode[JSON.stringify(event.postback)]);
 		}
 
 	}

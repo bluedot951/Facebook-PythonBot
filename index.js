@@ -44,10 +44,10 @@ app.post('/webhook', function (req, res) {
 			console.log("----webhook...args")
 
 
-			var output = evalCode(code, args);
-
-			console.log("webhook...output: " + output);
-			console.log("---webhook...output");
+			evalCode(code, args, function processOutput(output) {
+				console.log("webhook...output: " + output);
+				console.log("---webhook...output");
+			});
 
 			// prevCode[event.sender.id + ""] = [code, args];
 
@@ -183,11 +183,7 @@ function getCode(text) {
 		return [code, options];
 
 	}
-
-	else {
-		return [];
-	}
-
+=
 	return [];
 }
 
@@ -199,12 +195,12 @@ function evalMessage(recipientId, text) {
 
 };
 
-function evalCode(code, options, recipientId) {
+function evalCode(code, options, recipientId, callback) {
 	// sendMessage(recipientId, {text: "Evaluating the following Python code:\n```python\n" + code});
 
 	console.log("CODE: " + code);
 
-	return fs.writeFile("my_script.py", code, function(err) {
+	fs.writeFile("my_script.py", code, function(err) {
 		if(err) {
 			sendMessage(recipientId, {text: "Sorry, an error occured."});
 		    console.log(err);
@@ -213,7 +209,7 @@ function evalCode(code, options, recipientId) {
 
 		var toSend = "before running...";
 
-		return PythonShell.run('my_script.py', options, function (err, results) {
+		PythonShell.run('my_script.py', options, function (err, results) {
 			var toSend = "inside run";
 
 			if (err) {
@@ -231,7 +227,7 @@ function evalCode(code, options, recipientId) {
 
 		  	console.log("toSend from eval: " + toSend);
 
-		  	return toSend;
+		  	callback(toSend);
 
 	  		// sendMessage(recipientId, {text: toSend});
 	  		// prevCode[recipientId+""] = [code, options];

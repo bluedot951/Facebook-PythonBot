@@ -226,6 +226,8 @@ function evalCode(code, options, recipientId) {
 		  		toSend += results[q] + "\n";
 		  	}
 
+		  	console.log("toSend from eval: " + toSend);
+
 		  	return toSend;
 
 	  		// sendMessage(recipientId, {text: toSend});

@@ -44,7 +44,7 @@ app.post('/webhook', function (req, res) {
 			console.log("payload: " + event.postback['payload']);
 			console.log("in prevCode: " + prevCode[event.postback['payload']]);
 			infoArr = prevCode[event.postback['payload']];
-			evalCode(arr[0], arr[1], parseInt(event.postback['payload']));
+			evalCode(infoArr[0], infoArr[1], parseInt(event.postback['payload']));
 		}
 
 	}

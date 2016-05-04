@@ -170,6 +170,7 @@ function evalCode(code, options, recipientId) {
 
 	  		sendMessage(recipientId, {text: toSend});
 	  		prevCode[recipientId] = (code, options);
+	  		console.log(prevCode);
 	  		sendStructuredMessage(recipientId);
 
 		  	return true;

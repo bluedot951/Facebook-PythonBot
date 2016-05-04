@@ -39,6 +39,7 @@ app.post('/webhook', function (req, res) {
 			var toSend = "You entered the following code:\n```python\n" + infoArr[0];
 			console.log(toSend);
 			sendMessage(event.sender.id, "toSend");
+			console.log("Message sent!");
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));
@@ -117,6 +118,9 @@ function sendMessage(recipientId, message) {
 			console.log('Error sending message: ', error);
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error);
+		}
+		else {
+			console.log("message sent!");
 		}
 	});
 };

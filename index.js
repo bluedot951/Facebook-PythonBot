@@ -211,6 +211,7 @@ function evalCode(code, options, recipientId) {
 		    return "";
 		}
 
+		var toSend = "before running...";
 
 		PythonShell.run('my_script.py', options, function (err, results) {
 			if (err) {

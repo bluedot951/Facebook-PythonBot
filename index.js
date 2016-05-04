@@ -150,7 +150,7 @@ function evalMessage(recipientId, text) {
 };
 
 function evalCode(code, options, recipientId) {
-	sendMessage(recipientId, {text: "```python\n" + code});
+	sendMessage(recipientId, {text: "Evaluating the following Python code:\n```python\n" + code});
 
 	console.log("CODE: " + code);
 

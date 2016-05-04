@@ -51,8 +51,7 @@ function sendStructuredMessage(recipientId) {
 	        "template_type": "generic",
 	        "elements": [{
 	          "title": "Evaluation complete!",
-	          "subtitle": "Element #1 of an hscroll",
-	          "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+	          "subtitle": "Would you like to reevaluate the script?",
 	          "buttons": [{
 	            "type": "postback",
 	            "title": "Reevaluate",

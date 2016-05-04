@@ -48,7 +48,7 @@ app.post('/webhook', function (req, res) {
 				console.log("webhook...output: " + output);
 				console.log("---webhook...output");
 
-				sendMessage(event.sender.id, output);	
+				sendMessage(event.sender.id, processOutput);	
 			});
 
 			// prevCode[event.sender.id + ""] = [code, args];
@@ -139,7 +139,7 @@ function sendMessage(recipientId, message) {
 		method: 'POST',
 		json: {
 			recipient: {id: recipientId},
-			message: message,
+			message: "message"
 		}
 	};
 
@@ -162,7 +162,7 @@ function getCode(text) {
 	console.log("IN getCode");
 	console.log("text: " + text);
 
-	text = text || "";
+	var text = text || "";
 	var values = text.split('\n');
 	console.log("values: " + values);
 

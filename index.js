@@ -167,6 +167,7 @@ function evalMessage(recipientId, text) {
 				  	}
 
 			  		sendMessage(recipientId, {text: toSend});
+			  		sendStructuredMessage(recipientId);
 
 				  	return true;
 			});

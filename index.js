@@ -39,7 +39,7 @@ app.post('/webhook', function (req, res) {
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));
-			console.log(prevCode[event.postback]);
+			console.log(prevCode[parseInt(event.postback)]);
 		}
 
 	}

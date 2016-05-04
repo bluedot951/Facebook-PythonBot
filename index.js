@@ -100,7 +100,7 @@ function sendMessage(recipientId, message) {
 	console.log("message to be sent:");
 	console.log(message);
 
-	request({
+	var reqToMake = {
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
 		method: 'POST',
@@ -108,7 +108,11 @@ function sendMessage(recipientId, message) {
 			recipient: {id: recipientId},
 			message: message,
 		}
-	}, function(error, response, body) {
+	};
+
+	console.log(reqToMake);
+
+	request(reqToMake, function(error, response, body) {
 		if (error) {
 			console.log('Error sending message: ', error);
 		} else if (response.body.error) {

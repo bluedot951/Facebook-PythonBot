@@ -51,19 +51,15 @@ app.post('/webhook', function (req, res) {
 				console.log("---webhook...output");
 
 				sendMessage(event.sender.id, output);	
+
+				prevCode[event.sender.id + ""] = [code, args];
+
+				sendMessage(output, recipientId);
+				sendStructuredMessage(recipientId);
+
 			});
 
 
-
-
-
-
-
-
-			// prevCode[event.sender.id + ""] = [code, args];
-
-			// sendMessage(output, recipientId);
-			// sendStructuredMessage(recipientId);
 
 
 
@@ -134,28 +130,6 @@ function sendStructuredMessage(recipientId) {
 	});
 };
 
-// function sendTextMessage(sender, text) {
-//   messageData = {
-//     text:text
-//   }
-//   request({
-//     url: 'https://graph.facebook.com/v2.6/me/messages',
-//     qs: {access_token:token},
-//     method: 'POST',
-//     json: {
-//       recipient: {id:sender},
-//       message: messageData,
-//     }
-//   }, function(error, response, body) {
-//     if (error) {
-//       console.log('Error sending message: ', error);
-//     } else if (response.body.error) {
-//       console.log('Error: ', response.body.error);
-//     }
-//   });
-// }
-
-
 function sendMessage(recipientId, message) {
 	console.log("in send message!");
 	console.log(message);
@@ -186,45 +160,6 @@ function sendMessage(recipientId, message) {
 		}
 	});
 };
-
-
-// function sendMessage(recipientId, message) {
-// 	console.log("in send message! Sending message to:");
-// 	console.log(recipientId);
-// 	console.log("message to be sent:");
-// 	console.log(message);
-
-// 	// var reqToMake = {
-// 	// 	url: 'https://graph.facebook.com/v2.6/me/messages',
-// 	// 	qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-// 	// 	method: 'POST',
-// 	// 	json: {
-// 	// 		recipient: {id: recipientId},
-// 	// 		message: "message"
-// 	// 	}
-// 	// };
-
-// 	// console.log(reqToMake);
-
-// 	request({
-// 		url: 'https://graph.facebook.com/v2.6/me/messages',
-// 		qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-// 		method: 'POST',
-// 		json: {
-// 			recipient: {id: recipientId},
-// 			message: "message"
-// 		}
-// 	}, function(error, response, body) {
-// 		if (error) {
-// 			console.log('Error sending message: ', error);
-// 		} else if (response.body.error) {
-// 			console.log('Error: ', response.body.error);
-// 		}
-// 		else {
-// 			console.log("message sent!");
-// 		}
-// 	});
-// };
 
 // takes in text, including eval and perhaps args ___ .
 function getCode(text) {

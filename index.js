@@ -136,7 +136,17 @@ function sendStructuredMessage(recipientId) {
 
 function sendMessage(recipientId, message) {
 	console.log("in send message!");
-	console.log("message");
+	console.log(message);
+
+	console.log({
+		url: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+		method: 'POST',
+		json: {
+			recipient: {id: recipientId},
+			message: message,
+		}
+	});
 
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',

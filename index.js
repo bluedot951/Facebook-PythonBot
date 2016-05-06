@@ -228,7 +228,7 @@ function evalCode(code, options, callback) {
 			}
 		  	console.log('results: %j', results);
 
-		  	if(results == null) {
+		  	if(results === null) {
 		  		callback("");
 		  	}
 

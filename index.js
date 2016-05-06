@@ -54,8 +54,7 @@ app.post('/webhook', function (req, res) {
 
 				prevCode[event.sender.id + ""] = [code, args];
 
-				sendMessage(output, recipientId);
-				sendStructuredMessage(recipientId);
+				sendStructuredMessage(event.sender.id);
 
 			});
 

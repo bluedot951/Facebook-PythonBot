@@ -230,6 +230,7 @@ function evalCode(code, options, callback) {
 
 		  	if(results === null) {
 		  		callback("");
+		  		return;
 		  	}
 
 		  	toSend = "";

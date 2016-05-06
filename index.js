@@ -136,6 +136,7 @@ function sendStructuredMessage(recipientId) {
 
 function sendMessage(recipientId, message) {
 	console.log("in send message!");
+	console.log("message");
 
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',

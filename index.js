@@ -57,25 +57,6 @@ app.post('/webhook', function (req, res) {
 				sendStructuredMessage(event.sender.id);
 
 			});
-
-
-
-
-
-
-
-
-
-
-			// evalMessage(event.sender.id, event.message.text);
-			// console.log("calling getCode from webhook");
-			// var infoArr = getCode(event.message.text);
-			// console.log("infoArr below.");
-			// console.log(infoArr);
-			// var toSend = "You entered the following code:\n```python\n" + infoArr[0];
-			// console.log(toSend);
-			// sendMessage(event.sender.id, "toSend");
-			// console.log("Message sent!");
 		}
 		else if (event.postback) {
 			console.log("Postback received: " + JSON.stringify(event.postback));
@@ -84,7 +65,20 @@ app.post('/webhook', function (req, res) {
 			console.log("payload: " + event.postback['payload']);
 			console.log("in prevCode: " + prevCode[event.postback['payload']]);
 			infoArr = prevCode[event.postback['payload']];
-			evalCode(infoArr[0], infoArr[1], parseInt(event.postback['payload']));
+
+			var code = infoArr[0];
+			var args = infoArr[1];
+
+			evalCode(code, args, function processOutput(output) {
+				console.log("webhook...output: " + output);
+				console.log("---webhook...output");
+
+				sendMessage(event.sender.id, output);	
+
+				sendStructuredMessage(event.sender.id);
+
+			});
+
 		}
 
 	}

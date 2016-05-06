@@ -98,7 +98,13 @@ function sendStructuredMessage(recipientId) {
 	            "type": "postback",
 	            "title": "Reevaluate",
 	            "payload": recipientId
-	          }],
+	          }]
+	          // },
+	          // {
+	          //   "type": "postback",
+	          //   "title": "Reevaluate",
+	          //   "payload": "opt" + recipientId
+	          // }],
 	        }]
 	      }
 	    }

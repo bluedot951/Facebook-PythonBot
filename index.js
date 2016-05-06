@@ -72,7 +72,7 @@ app.post('/webhook', function (req, res) {
 				// sendMessage(recipientId, {text: "Evaluating the following Python code:\n```python\n" + code});
 
 
-			sendMessage(event.sender.id, {text: "Evaluating the following Python code:\n```python\n" + code});
+			sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
 
 			evalCode(code, args, function processOutput(output) {
 				console.log("webhook...output: " + output);

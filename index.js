@@ -175,6 +175,10 @@ function getCode(text) {
 
 		var code = "";
 
+		if(values.length == 1) {
+			return [];
+		}
+
 		if (values[1].split(" ")[0] === 'args') {
 			options['args'] = (values[1].substring(5)).split(" ");
 			values.splice(0,2);

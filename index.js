@@ -33,23 +33,32 @@ app.post('/webhook', function (req, res) {
 		if (event.message && event.message.text) {
 			console.log("in webhook.event.message...");
 
-			var infoArr = getCode(event.message.text);
-			var code = infoArr[0];
-			var args = infoArr[1];
+			sendMessage(event.sender.id, "Echo: " + event.message);
 
-			console.log("webhook...code: " + code);
-			console.log("----webhook...code")
-			console.log("webhook...args: ");
-			console.log(args);
-			console.log("----webhook...args")
+			// var infoArr = getCode(event.message.text);
+			// var code = infoArr[0];
+			// var args = infoArr[1];
+
+			// console.log("webhook...code: " + code);
+			// console.log("----webhook...code")
+			// console.log("webhook...args: ");
+			// console.log(args);
+			// console.log("----webhook...args")
 
 
-			evalCode(code, args, function processOutput(output) {
-				console.log("webhook...output: " + output);
-				console.log("---webhook...output");
+			// evalCode(code, args, function processOutput(output) {
+			// 	console.log("webhook...output: " + output);
+			// 	console.log("---webhook...output");
 
-				sendMessage(event.sender.id, output);	
-			});
+			// 	sendMessage(event.sender.id, output);	
+			// });
+
+
+
+
+
+
+
 
 			// prevCode[event.sender.id + ""] = [code, args];
 

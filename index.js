@@ -228,6 +228,10 @@ function evalCode(code, options, callback) {
 			}
 		  	console.log('results: %j', results);
 
+		  	if(results == null) {
+		  		callback("");
+		  	}
+
 		  	toSend = "";
 
 		  	for(q = 0; q < results.length; q++) {

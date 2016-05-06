@@ -134,25 +134,8 @@ function sendStructuredMessage(recipientId) {
 	});
 };
 
-
-
 function sendMessage(recipientId, message) {
-	console.log("in send message! Sending message to:");
-	console.log(recipientId);
-	console.log("message to be sent:");
-	console.log(message);
-
-	// var reqToMake = {
-	// 	url: 'https://graph.facebook.com/v2.6/me/messages',
-	// 	qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-	// 	method: 'POST',
-	// 	json: {
-	// 		recipient: {id: recipientId},
-	// 		message: "message"
-	// 	}
-	// };
-
-	// console.log(reqToMake);
+	console.log("in send message!");
 
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -160,7 +143,7 @@ function sendMessage(recipientId, message) {
 		method: 'POST',
 		json: {
 			recipient: {id: recipientId},
-			message: "message"
+			message: message,
 		}
 	}, function(error, response, body) {
 		if (error) {
@@ -168,11 +151,47 @@ function sendMessage(recipientId, message) {
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error);
 		}
-		else {
-			console.log("message sent!");
-		}
 	});
 };
+
+
+// function sendMessage(recipientId, message) {
+// 	console.log("in send message! Sending message to:");
+// 	console.log(recipientId);
+// 	console.log("message to be sent:");
+// 	console.log(message);
+
+// 	// var reqToMake = {
+// 	// 	url: 'https://graph.facebook.com/v2.6/me/messages',
+// 	// 	qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+// 	// 	method: 'POST',
+// 	// 	json: {
+// 	// 		recipient: {id: recipientId},
+// 	// 		message: "message"
+// 	// 	}
+// 	// };
+
+// 	// console.log(reqToMake);
+
+// 	request({
+// 		url: 'https://graph.facebook.com/v2.6/me/messages',
+// 		qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+// 		method: 'POST',
+// 		json: {
+// 			recipient: {id: recipientId},
+// 			message: "message"
+// 		}
+// 	}, function(error, response, body) {
+// 		if (error) {
+// 			console.log('Error sending message: ', error);
+// 		} else if (response.body.error) {
+// 			console.log('Error: ', response.body.error);
+// 		}
+// 		else {
+// 			console.log("message sent!");
+// 		}
+// 	});
+// };
 
 // takes in text, including eval and perhaps args ___ .
 function getCode(text) {

@@ -45,6 +45,8 @@ app.post('/webhook', function (req, res) {
 			console.log(args);
 			console.log("----webhook...args")
 
+			sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
+
 
 			evalCode(code, args, function processOutput(output) {
 				console.log("webhook...output: " + output);
@@ -68,9 +70,6 @@ app.post('/webhook', function (req, res) {
 
 			var code = infoArr[0];
 			var args = infoArr[1];
-
-				// sendMessage(recipientId, {text: "Evaluating the following Python code:\n```python\n" + code});
-
 
 			sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
 

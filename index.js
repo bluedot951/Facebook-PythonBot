@@ -54,7 +54,7 @@ app.post('/webhook', function (req, res) {
 
 				if(output.length > 300) {
 
-					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + "out\\nput" + "\" } } }";
+					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + output + "\" } } }";
 
 					console.log(formData);
 
@@ -221,11 +221,11 @@ function getCode(text) {
 		if (values[1].split(" ")[0] === 'args') {
 			options['args'] = (values[1].substring(5)).split(" ");
 			values.splice(0,2);
-			code = values.join("\n");
+			code = values.join("\\n");
 		}
 		else {
 			values.splice(0,1);
-			code = values.join("\n");
+			code = values.join("\\n");
 		}
 
 		return [code, options];

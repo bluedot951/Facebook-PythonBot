@@ -54,9 +54,9 @@ app.post('/webhook', function (req, res) {
 
 				if(output.length > 300) {
 
-					output = output.split("\n").join("\\n");
+					var reploutput = output.split("\n").join("\\n");
 
-					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + output + "\" } } }";
+					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
 
 					console.log(formData);
 

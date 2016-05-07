@@ -67,6 +67,7 @@ app.post('/webhook', function (req, res) {
 						}
 					}, 
 					function(error,httpResponse,body){
+						console.log(JSON.parse(body));
 						var myurl = JSON.parse(body).files['file1.txt']['raw_url'];
 						console.log(myurl);
 

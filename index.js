@@ -253,12 +253,12 @@ function evalCode(code, options, callback) {
 		});
 	});
 
-	setTimeout(1000, function() {
+	setTimeout(function() {
 		if(!finished) {
 			console.log("timed out :(");
 			timedOut = true;
 		}
-	})
+	}, 1000);
 
 }
 

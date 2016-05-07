@@ -52,23 +52,62 @@ app.post('/webhook', function (req, res) {
 				console.log("webhook...output: " + output);
 				console.log("---webhook...output");
 
+				if(output.length > 300) {
+
+					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"String file contents\" } } }";
+
+					request.post(
+					{
+						url:'https://api.github.com/gists',
+						form: formData,
+						headers: {
+							'User-Agent': 'fbbot request'
+						}
+					}, 
+					function(error,httpResponse,body){
+						var myurl = JSON.parse(body).files['file1.txt']['raw_url'];
+						console.log(myurl);
+
+						sendMessage(event.sender.id, myurl);	
+						prevCode[event.sender.id + ""] = [code, args];
+
+						sendStructuredMessage(event.sender.id);
+
+						if (error) {
+							console.log('Error sending message: ', error);
+						} else if (response.body.error) {
+							console.log('Error: ', response.body.error);
+						}
+					});
+
+					// var formData = {
+					// 	api_option: 'paste',
+					// 	api_dev_key: process.env.PASTEBIN_DEV_KEY,
+					// 	api_paste_code: output
+					// };
 
 
-				var formData = {
-					api_option: 'paste',
-					api_dev_key: process.env.PASTEBIN_DEV_KEY,
-					api_paste_code: output
-				};
+					// request({
+					// 	url: 'http://pastebin.com/api/api_post.php',
+					// 	method: 'POST',
+					// 	formData: formData
+					// }, function(error, response, body) {
+					// 	console.log(response.body);
+					// 	sendMessage(event.sender.id, response.body);	
+					// 	prevCode[event.sender.id + ""] = [code, args];
 
-				console.l
+					// 	sendStructuredMessage(event.sender.id);
 
+					// 	if (error) {
+					// 		console.log('Error sending message: ', error);
+					// 	} else if (response.body.error) {
+					// 		console.log('Error: ', response.body.error);
+					// 	}
+					// });
 
-				request({
-					url: 'http://pastebin.com/api/api_post.php',
-					method: 'POST',
-					formData: formData
-				}, function(error, response, body) {
-					console.log(response.body);
+				}
+
+				else {
 					sendMessage(event.sender.id, response.body);	
 					prevCode[event.sender.id + ""] = [code, args];
 
@@ -79,7 +118,7 @@ app.post('/webhook', function (req, res) {
 					} else if (response.body.error) {
 						console.log('Error: ', response.body.error);
 					}
-				});
+				}
 
 
 

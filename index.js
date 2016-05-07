@@ -52,11 +52,34 @@ app.post('/webhook', function (req, res) {
 				console.log("webhook...output: " + output);
 				console.log("---webhook...output");
 
-				sendMessage(event.sender.id, output);	
 
-				prevCode[event.sender.id + ""] = [code, args];
 
-				sendStructuredMessage(event.sender.id);
+				var formData = {
+					api_option: 'paste',
+					api_dev_key: process.env.PAGE_ACCESS_TOKEN,
+					api_paste_code: output
+				};
+
+
+				request({
+					url: 'http://pastebin.com/api/api_post.php',
+					method: 'POST',
+					formData: formData
+				}, function(error, response, body) {
+					console.log(response.body);
+					sendMessage(event.sender.id, response.body);	
+					prevCode[event.sender.id + ""] = [code, args];
+
+					sendStructuredMessage(event.sender.id);
+
+					if (error) {
+						console.log('Error sending message: ', error);
+					} else if (response.body.error) {
+						console.log('Error: ', response.body.error);
+					}
+				});
+
+
 
 			});
 		}
@@ -78,7 +101,7 @@ app.post('/webhook', function (req, res) {
 				console.log("---webhook...output");
 
 
-				
+
 
 				sendMessage(event.sender.id, output);	
 
@@ -94,46 +117,46 @@ app.post('/webhook', function (req, res) {
 
 function sendStructuredMessage(recipientId) {
 	messageData = {
-	    "attachment": {
-	      "type": "template",
-	      "payload": {
-	        "template_type": "generic",
-	        "elements": [{
-	          "title": "Evaluation complete!",
-	          "subtitle": "Would you like to reevaluate the script?",
-	          "buttons": [{
-	            "type": "postback",
-	            "title": "Reevaluate",
-	            "payload": recipientId
-	          }]
+		"attachment": {
+			"type": "template",
+			"payload": {
+				"template_type": "generic",
+				"elements": [{
+					"title": "Evaluation complete!",
+					"subtitle": "Would you like to reevaluate the script?",
+					"buttons": [{
+						"type": "postback",
+						"title": "Reevaluate",
+						"payload": recipientId
+					}]
 	          // },
 	          // {
 	          //   "type": "postback",
 	          //   "title": "Reevaluate",
 	          //   "payload": "opt" + recipientId
 	          // }],
-	        }]
-	      }
-	    }
-	  };
+	      }]
+	  }
+	}
+};
 
-	console.log("in send structuted message!");
+console.log("in send structuted message!");
 
-	request({
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-		method: 'POST',
-		json: {
-			recipient: {id: recipientId},
-			message: messageData,
-		}
-	}, function(error, response, body) {
-		if (error) {
-			console.log('Error sending message: ', error);
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error);
-		}
-	});
+request({
+	url: 'https://graph.facebook.com/v2.6/me/messages',
+	qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+	method: 'POST',
+	json: {
+		recipient: {id: recipientId},
+		message: messageData,
+	}
+}, function(error, response, body) {
+	if (error) {
+		console.log('Error sending message: ', error);
+	} else if (response.body.error) {
+		console.log('Error: ', response.body.error);
+	}
+});
 };
 
 function sendMessage(recipientId, message) {
@@ -221,8 +244,8 @@ function evalCode(code, options, callback) {
 	fs.writeFile("my_script.py", code, function(err) {
 		if(err) {
 			// sendMessage(recipientId, {text: "Sorry, an error occured."});
-		    console.log(err);
-		    return "";
+			console.log(err);
+			return "";
 		}
 
 		var toSend = "before running...";
@@ -235,31 +258,31 @@ function evalCode(code, options, callback) {
 				console.log(err);
 				return "";
 			}
-		  	console.log('results: %j', results);
+			console.log('results: %j', results);
 
-		  	if(results === null) {
-		  		callback("");
-		  		return;
-		  	}
+			if(results === null) {
+				callback("");
+				return;
+			}
 
-		  	toSend = "";
+			toSend = "";
 
-		  	for(q = 0; q < results.length; q++) {
-		  		toSend += results[q] + "\n";
-		  	}
+			for(q = 0; q < results.length; q++) {
+				toSend += results[q] + "\n";
+			}
 
-		  	console.log("toSend from eval: " + toSend);
-		  	finished = true;
-		  	if(!timedOut) {
-		  		callback(toSend);
-		  	}
+			console.log("toSend from eval: " + toSend);
+			finished = true;
+			if(!timedOut) {
+				callback(toSend);
+			}
 		});
 	});
 
 	setTimeout(function() {
 		if(!finished) {
 			console.log("timed out :(");
-			callback("NOTE: Execution imedt out.");
+			callback("NOTE: Execution timed out.");
 			timedOut = true;
 		}
 	}, 1000);

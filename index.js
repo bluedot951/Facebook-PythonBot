@@ -221,11 +221,11 @@ function getCode(text) {
 		if (values[1].split(" ")[0] === 'args') {
 			options['args'] = (values[1].substring(5)).split(" ");
 			values.splice(0,2);
-			code = values.join("\\n");
+			code = values.join("\n");
 		}
 		else {
 			values.splice(0,1);
-			code = values.join("\\n");
+			code = values.join("\n");
 		}
 
 		return [code, options];
@@ -277,7 +277,7 @@ function evalCode(code, options, callback) {
 			toSend = "";
 
 			for(q = 0; q < results.length; q++) {
-				toSend += results[q] + "\n";
+				toSend += results[q] + "\\n";
 			}
 
 			console.log("toSend from eval: " + toSend);

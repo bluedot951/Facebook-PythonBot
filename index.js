@@ -54,7 +54,7 @@ app.post('/webhook', function (req, res) {
 
 				if(output.length > 300) {
 
-					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + "out\nput" + "\" } } }";
+					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + "out\\nput" + "\" } } }";
 
 					console.log(formData);
 

@@ -256,6 +256,7 @@ function evalCode(code, options, callback) {
 	setTimeout(function() {
 		if(!finished) {
 			console.log("timed out :(");
+			callback("Timed out.");
 			timedOut = true;
 		}
 	}, 1000);

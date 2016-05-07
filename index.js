@@ -75,7 +75,11 @@ app.post('/webhook', function (req, res) {
 						var myurl = JSON.parse(body).files['file1.txt']['raw_url'];
 						console.log(myurl);
 
-						sendMessage(event.sender.id, myurl);	
+						var shortOutput = output.substring(0, 100);
+
+						var toSend = shortOutput + "\nOutput clipped. Full output can be found at:" +  myurl;
+
+						sendMessage(event.sender.id, toSend);	
 						prevCode[event.sender.id + ""] = [code, args];
 
 						sendStructuredMessage(event.sender.id);

@@ -79,16 +79,10 @@ app.post('/webhook', function (req, res) {
 				}
 
 				else {
-					sendMessage(event.sender.id, response.body);	
+					sendMessage(event.sender.id, output);	
 					prevCode[event.sender.id + ""] = [code, args];
 
 					sendStructuredMessage(event.sender.id);
-
-					if (error) {
-						console.log('Error sending message: ', error);
-					} else if (response.body.error) {
-						console.log('Error: ', response.body.error);
-					}
 				}
 
 

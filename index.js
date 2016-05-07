@@ -56,9 +56,11 @@ app.post('/webhook', function (req, res) {
 
 				var formData = {
 					api_option: 'paste',
-					api_dev_key: process.env.PAGE_ACCESS_TOKEN,
+					api_dev_key: process.env.PASTEBIN_DEV_KEY,
 					api_paste_code: output
 				};
+
+				console.l
 
 
 				request({

@@ -210,6 +210,9 @@ function evalMessage(recipientId, text) {
 
 function evalCode(code, options, callback) {
 
+	var finished = false;
+	var timedOut = false;
+
 	console.log("CODE: " + code);
 
 	fs.writeFile("my_script.py", code, function(err) {
@@ -243,18 +246,19 @@ function evalCode(code, options, callback) {
 		  	}
 
 		  	console.log("toSend from eval: " + toSend);
-
-		  	callback(toSend);
-
-	  		// sendMessage(recipientId, {text: toSend});
-	  		// prevCode[recipientId+""] = [code, options];
-	  		// console.log(prevCode);
-	  		// console.log(recipientId);
-	  		// sendStructuredMessage(recipientId);
-
-		  	// return true;
+		  	finished = true;
+		  	if(!timedOut) {
+		  		callback(toSend);
+		  	}
 		});
 	});
+
+	setTimeout(1000, function() {
+		if(!finished) {
+			console.log("timed out :(");
+			timedOut = true;
+		}
+	})
 
 }
 

@@ -86,7 +86,7 @@ app.post('/webhook', function (req, res) {
 						function(err,httpResponse,body){
 							var shorturl = httpResponse.caseless.dict.location;
 								
-							var toSend = shortOutput + "\nOutput clipped. Full output can be found at: \n" +  myurl + "\n" + shorturl;
+							var toSend = shortOutput + "\nOutput clipped.\nFull output can be found at: " + shorturl;
 
 							sendMessage(event.sender.id, toSend);	
 							prevCode[event.sender.id + ""] = [code, args];

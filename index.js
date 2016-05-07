@@ -72,12 +72,6 @@ app.post('/webhook', function (req, res) {
 						prevCode[event.sender.id + ""] = [code, args];
 
 						sendStructuredMessage(event.sender.id);
-
-						if (error) {
-							console.log('Error sending message: ', error);
-						} else if (response.body.error) {
-							console.log('Error: ', response.body.error);
-						}
 					});
 
 					// var formData = {

@@ -56,6 +56,8 @@ app.post('/webhook', function (req, res) {
 
 					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + output + "\" } } }";
 
+					console.log(formData);
+
 					request.post(
 					{
 						url:'https://api.github.com/gists',
@@ -73,31 +75,6 @@ app.post('/webhook', function (req, res) {
 
 						sendStructuredMessage(event.sender.id);
 					});
-
-					// var formData = {
-					// 	api_option: 'paste',
-					// 	api_dev_key: process.env.PASTEBIN_DEV_KEY,
-					// 	api_paste_code: output
-					// };
-
-
-					// request({
-					// 	url: 'http://pastebin.com/api/api_post.php',
-					// 	method: 'POST',
-					// 	formData: formData
-					// }, function(error, response, body) {
-					// 	console.log(response.body);
-					// 	sendMessage(event.sender.id, response.body);	
-					// 	prevCode[event.sender.id + ""] = [code, args];
-
-					// 	sendStructuredMessage(event.sender.id);
-
-					// 	if (error) {
-					// 		console.log('Error sending message: ', error);
-					// 	} else if (response.body.error) {
-					// 		console.log('Error: ', response.body.error);
-					// 	}
-					// });
 
 				}
 

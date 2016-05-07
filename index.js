@@ -77,6 +77,9 @@ app.post('/webhook', function (req, res) {
 				console.log("webhook...output: " + output);
 				console.log("---webhook...output");
 
+
+				
+
 				sendMessage(event.sender.id, output);	
 
 				sendStructuredMessage(event.sender.id);
@@ -256,7 +259,7 @@ function evalCode(code, options, callback) {
 	setTimeout(function() {
 		if(!finished) {
 			console.log("timed out :(");
-			callback("Timed out.");
+			callback("NOTE: Execution imedt out.");
 			timedOut = true;
 		}
 	}, 1000);

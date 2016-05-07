@@ -54,6 +54,8 @@ app.post('/webhook', function (req, res) {
 
 				if(output.length > 300) {
 
+					output = output.split("\n").join("\\n");
+
 					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + output + "\" } } }";
 
 					console.log(formData);
@@ -277,7 +279,7 @@ function evalCode(code, options, callback) {
 			toSend = "";
 
 			for(q = 0; q < results.length; q++) {
-				toSend += results[q] + "\\n";
+				toSend += results[q] + "\n";
 			}
 
 			console.log("toSend from eval: " + toSend);

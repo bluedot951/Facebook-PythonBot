@@ -76,13 +76,27 @@ app.post('/webhook', function (req, res) {
 						console.log(myurl);
 
 						var shortOutput = output.substring(0, 100);
+						var shorturlform = "url=" + myurl;
 
-						var toSend = shortOutput + "\nOutput clipped. Full output can be found at:" +  myurl;
+						request.post(
+						{
+							url:'https://git.io/',
+							form: shorturlform,
+						}, 
+						function(err,httpResponse,body){
+							var shorturl = httpResponse.caseless.dict.location;
+								
+							var toSend = shortOutput + "\nOutput clipped. Full output can be found at: \n" +  myurl + "\n" + shorturl;
 
-						sendMessage(event.sender.id, toSend);	
-						prevCode[event.sender.id + ""] = [code, args];
+							sendMessage(event.sender.id, toSend);	
+							prevCode[event.sender.id + ""] = [code, args];
 
-						sendStructuredMessage(event.sender.id);
+							sendStructuredMessage(event.sender.id);
+
+						}
+						);
+
+
 					});
 
 				}

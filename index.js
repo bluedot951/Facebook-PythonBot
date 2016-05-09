@@ -285,7 +285,7 @@ function evalCode(code, options, callback) {
 			if (err) {
 				// sendMessage(recipientId, {text: "Sorry, an error occured."});
 				console.log(err);
-				return "";
+				return err;
 			}
 			console.log('results: %j', results);
 

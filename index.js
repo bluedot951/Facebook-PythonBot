@@ -273,7 +273,9 @@ function evalCode(code, options, callback) {
 	fs.writeFile("my_script.py", code, function(err) {
 		if(err) {
 			// sendMessage(recipientId, {text: "Sorry, an error occured."});
+			console.log("ERROR... below:");
 			console.log(err);
+			console.log("ERROR... above.")
 			return "";
 		}
 
@@ -284,7 +286,9 @@ function evalCode(code, options, callback) {
 
 			if (err) {
 				// sendMessage(recipientId, {text: "Sorry, an error occured."});
+				console.log("an error occured. message:");
 				console.log(err);
+				console.log("error above");
 				return err;
 			}
 			console.log('results: %j', results);

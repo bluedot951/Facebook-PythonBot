@@ -198,14 +198,14 @@ function sendMessage(recipientId, message) {
 	// console.log(message);
 
 	// console.log({
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-		method: 'POST',
-		json: {
-			recipient: {id: recipientId},
-			message: {text: message},
-		}
-	});
+	// 	url: 'https://graph.facebook.com/v2.6/me/messages',
+	// 	qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+	// 	method: 'POST',
+	// 	json: {
+	// 		recipient: {id: recipientId},
+	// 		message: {text: message},
+	// 	}
+	// });
 
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',

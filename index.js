@@ -53,7 +53,7 @@ app.post('/webhook', function (req, res) {
 				console.log("---webhook...output");
 
 				if(output.length > 300) {
-
+					console.log("LONGER THAN 300!!");
 					var reploutput = output.split("\n").join("\\n");
 
 					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
@@ -97,11 +97,12 @@ app.post('/webhook', function (req, res) {
 						);
 
 
-					});
+					};
 
 				}
 
 				else {
+					console.log("Shorter than 300!!!");
 					sendMessage(event.sender.id, output);	
 					prevCode[event.sender.id + ""] = [code, args];
 
@@ -290,8 +291,8 @@ function evalCode(code, options, callback) {
 				console.log(err.stack);
 				console.log("PYTHON ERROR... above.");
 				errormsg = "An error occured. The stack trace is:\n" + err.stack;
-				errormsg = errormsg.split("\n").join("\\n");
-				callback(errormsg);
+				replacederrormsg = errormsg.split("\n").join("\\n");
+				callback(replacederrormsg);
 				return;
 			}
 			console.log('results: %j', results);

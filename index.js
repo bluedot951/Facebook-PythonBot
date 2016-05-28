@@ -31,7 +31,7 @@ app.post('/webhook', function (req, res) {
 		var event = events[i];
 
 		if (event.message && event.message.text) {
-			console.log("in webhook.event.message...");
+			// console.log("in webhook.event.message...");
 
 			// sendMessage(event.sender.id, "Echo: " + event.message);
 
@@ -39,26 +39,27 @@ app.post('/webhook', function (req, res) {
 			var code = infoArr[0];
 			var args = infoArr[1];
 
-			console.log("webhook...code: " + code);
-			console.log("----webhook...code")
-			console.log("webhook...args: ");
-			console.log(args);
-			console.log("----webhook...args")
+			// console.log("webhook...code: " + code);
+			// console.log("----webhook...code")
+			// console.log("webhook...args: ");
+			// console.log(args);
+			// console.log("----webhook...args")
 
 			sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
 
 
 			evalCode(code, args, function processOutput(output) {
-				console.log("webhook...output: " + output);
-				console.log("---webhook...output");
+				// console.log("webhook...output: " + output);
+				// console.log("---webhook...output");
+				
 
 				if(output.length > 300) {
-					console.log("LONGER THAN 300!!");
+					// console.log("LONGER THAN 300!!");
 					var reploutput = output.split("\n").join("\\n");
 
 					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
 
-					console.log(formData);
+					// // console.log(formData);
 
 					request.post(
 					{
@@ -69,11 +70,11 @@ app.post('/webhook', function (req, res) {
 						}
 					}, 
 					function(error,httpResponse,body){
-						console.log("body below:")
-						console.log(body);
-						console.log("body above");
+						// console.log("body below:")
+						// console.log(body);
+						// console.log("body above");
 						var myurl = JSON.parse(body).files['file1.txt']['raw_url'];
-						console.log(myurl);
+						// console.log(myurl);
 
 						var shortOutput = output.substring(0, 100);
 						var shorturlform = "url=" + myurl;
@@ -113,11 +114,11 @@ app.post('/webhook', function (req, res) {
 			});
 		}
 		else if (event.postback) {
-			console.log("Postback received: " + JSON.stringify(event.postback));
-			console.log(prevCode);
-			console.log("postback: " + JSON.stringify(event.postback));
-			console.log("payload: " + event.postback['payload']);
-			console.log("in prevCode: " + prevCode[event.postback['payload']]);
+			// console.log("Postback received: " + JSON.stringify(event.postback));
+			// console.log(prevCode);
+			// console.log("postback: " + JSON.stringify(event.postback));
+			// console.log("payload: " + event.postback['payload']);
+			// console.log("in prevCode: " + prevCode[event.postback['payload']]);
 			infoArr = prevCode[event.postback['payload']];
 
 			var code = infoArr[0];
@@ -126,8 +127,8 @@ app.post('/webhook', function (req, res) {
 			sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
 
 			evalCode(code, args, function processOutput(output) {
-				console.log("webhook...output: " + output);
-				console.log("---webhook...output");
+				// console.log("webhook...output: " + output);
+				// console.log("---webhook...output");
 
 
 
@@ -143,6 +144,10 @@ app.post('/webhook', function (req, res) {
 	}
 	res.sendStatus(200);
 });
+
+function makeGist(data) {
+
+}
 
 function sendStructuredMessage(recipientId) {
 	messageData = {
@@ -169,7 +174,7 @@ function sendStructuredMessage(recipientId) {
 	}
 };
 
-console.log("in send structuted message!");
+// console.log("in send structuted message!");
 
 request({
 	url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -181,18 +186,18 @@ request({
 	}
 }, function(error, response, body) {
 	if (error) {
-		console.log('Error sending message: ', error);
+		// console.log('Error sending message: ', error);
 	} else if (response.body.error) {
-		console.log('Error: ', response.body.error);
+		// console.log('Error: ', response.body.error);
 	}
 });
 };
 
 function sendMessage(recipientId, message) {
-	console.log("in send message!");
-	console.log(message);
+	// console.log("in send message!");
+	// console.log(message);
 
-	console.log({
+	// console.log({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
 		method: 'POST',
@@ -212,21 +217,21 @@ function sendMessage(recipientId, message) {
 		}
 	}, function(error, response, body) {
 		if (error) {
-			console.log('Error sending message: ', error);
+			// console.log('Error sending message: ', error);
 		} else if (response.body.error) {
-			console.log('Error: ', response.body.error);
+			// console.log('Error: ', response.body.error);
 		}
 	});
 };
 
 // takes in text, including eval and perhaps args ___ .
 function getCode(text) {
-	console.log("IN getCode");
-	console.log("text: " + text);
+	// console.log("IN getCode");
+	// console.log("text: " + text);
 
 	var text = text || "";
 	var values = text.split('\n');
-	console.log("values: " + values);
+	// console.log("values: " + values);
 
 	var options = {}
 
@@ -268,14 +273,14 @@ function evalCode(code, options, callback) {
 	var finished = false;
 	var timedOut = false;
 
-	console.log("CODE: " + code);
+	// console.log("CODE: " + code);
 
 	fs.writeFile("my_script.py", code, function(err) {
 		if(err) {
 			// sendMessage(recipientId, {text: "Sorry, an error occured."});
-			console.log("FILE CREATION ERROR... below:");
-			console.log(err);
-			console.log("FILE CREATION ERROR... above.")
+			// console.log("FILE CREATION ERROR... below:");
+			// console.log(err);
+			// console.log("FILE CREATION ERROR... above.")
 			return "";
 		}
 
@@ -286,15 +291,15 @@ function evalCode(code, options, callback) {
 
 			if (err) {
 				// sendMessage(recipientId, {text: "Sorry, an error occured."});
-				console.log("PYTHON ERROR... below:");
-				console.log(err.stack);
-				console.log("PYTHON ERROR... above.");
+				// console.log("PYTHON ERROR... below:");
+				// console.log(err.stack);
+				// console.log("PYTHON ERROR... above.");
 				errormsg = "An error occured. The stack trace is:\n" + err.stack;
 				replacederrormsg = errormsg.split("\n").join("\\n");
 				callback(replacederrormsg);
 				return;
 			}
-			console.log('results: %j', results);
+			// console.log('results: %j', results);
 
 			if(results === null) {
 				callback("");
@@ -307,7 +312,7 @@ function evalCode(code, options, callback) {
 				toSend += results[q] + "\n";
 			}
 
-			console.log("toSend from eval: " + toSend);
+			// console.log("toSend from eval: " + toSend);
 			finished = true;
 			if(!timedOut) {
 				callback(toSend);
@@ -317,7 +322,7 @@ function evalCode(code, options, callback) {
 
 	setTimeout(function() {
 		if(!finished) {
-			console.log("timed out :(");
+			// console.log("timed out :(");
 			callback("NOTE: Execution timed out.");
 			timedOut = true;
 		}

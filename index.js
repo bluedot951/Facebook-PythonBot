@@ -287,7 +287,7 @@ function evalCode(code, options, callback) {
 			if (err) {
 				// sendMessage(recipientId, {text: "Sorry, an error occured."});
 				console.log("PYTHON ERROR... below:");
-				console.log(err);
+				console.log(err[0]);
 				console.log("PYTHON ERROR... above.")
 				return err;
 			}

@@ -301,7 +301,7 @@ function evalCode(code, options, callback) {
 				if(!timedOut) {
 					// callback(errormsg);
 					console.log("SENDNING MODIFIED ERROR MSG");
-					callback("An error occured. The stack trace is:\nError: ZeroDivisionError: integer division or modulo by zero\n    at PythonShell.parseError");
+					callback("An error occured. The stack trace is:\nError: ZeroDivisionError: integer division or modulo by zero\n    at PythonShell.parseError (/app/node_modules/python-shell/index.js:183:17)\n    at terminateIfNeeded (/app/node_modules/python-shell/index.js:98:28)\n    at ChildProcess.<anonymous> (/app/node_modules/python-shell/index.js:88:9)\n");
 					// callback("An error occured in your code.");
 				}
 				// callback(replacederrormsg);

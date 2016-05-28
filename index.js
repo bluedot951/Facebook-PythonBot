@@ -288,8 +288,10 @@ function evalCode(code, options, callback) {
 				// sendMessage(recipientId, {text: "Sorry, an error occured."});
 				console.log("PYTHON ERROR... below:");
 				console.log(err.stack);
-				console.log("PYTHON ERROR... above.")
-				return err;
+				console.log("PYTHON ERROR... above.");
+				errormsg = "An error occured. The stack trace is:\n" + err.stack;
+				callback(errormsg);
+				return;
 			}
 			console.log('results: %j', results);
 

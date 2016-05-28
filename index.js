@@ -97,12 +97,11 @@ app.post('/webhook', function (req, res) {
 						);
 
 
-					};
+					});
 
 				}
 
 				else {
-					console.log("Shorter than 300!!!");
 					sendMessage(event.sender.id, output);	
 					prevCode[event.sender.id + ""] = [code, args];
 

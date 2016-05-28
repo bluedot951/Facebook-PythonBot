@@ -295,11 +295,11 @@ function evalCode(code, options, callback) {
 				// console.log("PYTHON ERROR... below:");
 				// console.log(err.stack);
 				// console.log("PYTHON ERROR... above.");
-				errormsg = "An error occured. The stack trace is:\n" + err.stack;
+				errormsg = "An error occured. The stack trace is:\n" + err.message;
 				replacederrormsg = errormsg.split("\n").join("\\n");
 				finished = true;
 				if(!timedOut) {
-					callback(errormsg.substring(1, 200));
+					callback(errormsg.substring(0, 200));
 					// callback("An error occured in your code.");
 				}
 				// callback(replacederrormsg);

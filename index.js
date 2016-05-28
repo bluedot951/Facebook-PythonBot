@@ -297,7 +297,8 @@ function evalCode(code, options, callback) {
 				// console.log("PYTHON ERROR... above.");
 				errormsg = "An error occured. The stack trace is:\n" + err.stack;
 				replacederrormsg = errormsg.split("\n").join("\\n");
-				callback(replacederrormsg);
+				callback("An error occured in your code.");
+				// callback(replacederrormsg);
 				return;
 			}
 			// console.log('results: %j', results);

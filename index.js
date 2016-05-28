@@ -51,15 +51,16 @@ app.post('/webhook', function (req, res) {
 			evalCode(code, args, function processOutput(output) {
 				// console.log("webhook...output: " + output);
 				// console.log("---webhook...output");
-				
+
 
 				if(output.length > 300) {
 					// console.log("LONGER THAN 300!!");
 					var reploutput = output.split("\n").join("\\n");
 
 					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
-
-					// // console.log(formData);
+					console.log("Sending formdata to github...");
+					console.log(formData);
+					console.log("end formdata");
 
 					request.post(
 					{

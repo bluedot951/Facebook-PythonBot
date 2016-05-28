@@ -299,7 +299,7 @@ function evalCode(code, options, callback) {
 				replacederrormsg = errormsg.split("\n").join("\\n");
 				finished = true;
 				if(!timedOut) {
-					callback(errormsg);
+					callback(errormsg.substring(1, 200));
 					// callback("An error occured in your code.");
 				}
 				// callback(replacederrormsg);

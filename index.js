@@ -298,7 +298,7 @@ function evalCode(code, options, callback) {
 				// console.log(err.stack);
 				// console.log("PYTHON ERROR... above.");
 				errormsg = "An error occured. The stack trace is:\n" + err.stack;
-				replacederrormsg = errormsg.split("\"").join("\\\"");
+				// replacederrormsg = errormsg.split("\"").join("\\\"");
 				finished = true;
 				if(!timedOut) {
 					console.log("SENDNING MODIFIED ERROR MSG");

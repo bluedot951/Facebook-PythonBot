@@ -56,6 +56,7 @@ app.post('/webhook', function (req, res) {
 				if(output.length > 300) {
 					// console.log("LONGER THAN 300!!");
 					var reploutput = output.split("\n").join("\\n");
+					reploutput = reploutput.split("\"").join("\\\"");
 
 					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
 					console.log("Sending formdata to github...");

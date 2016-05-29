@@ -297,12 +297,12 @@ function evalCode(code, options, callback) {
 				// console.log(err.stack);
 				// console.log("PYTHON ERROR... above.");
 				errormsg = "An error occured. The stack trace is:\n" + err.stack;
-				replacederrormsg = errormsg.split("\n").join("\\n");
+				replacederrormsg = errormsg.split("\"").join("\\\"");
 				finished = true;
 				if(!timedOut) {
-					// callback(errormsg);
 					console.log("SENDNING MODIFIED ERROR MSG");
-					callback("An error occured. The stack trace is:\nError: ZeroDivisionError: integer division or modulo by zero\n    at PythonShell.parseError (/app/node_modules/python-shell/index.js:183:17)\n    at terminateIfNeeded (/app/node_modules/python-shell/index.js:98:28)\n    at ChildProcess.<anonymous> (/app/node_modules/python-shell/index.js:88:9)\n    at emitTwo (events.js:100:13)\n    at ChildProcess.emit (events.js:185:7)\n    at Process.ChildProcess._handle.onexit (internal/child_process.js:204:12)\n    ----- Python Traceback -----\n    File \\\"my_script.py\\\", line 1, in <module>\n      print(1/0)");
+					callback(replacederrormsg);
+					// callback("An error occured. The stack trace is:\nError: ZeroDivisionError: integer division or modulo by zero\n    at PythonShell.parseError (/app/node_modules/python-shell/index.js:183:17)\n    at terminateIfNeeded (/app/node_modules/python-shell/index.js:98:28)\n    at ChildProcess.<anonymous> (/app/node_modules/python-shell/index.js:88:9)\n    at emitTwo (events.js:100:13)\n    at ChildProcess.emit (events.js:185:7)\n    at Process.ChildProcess._handle.onexit (internal/child_process.js:204:12)\n    ----- Python Traceback -----\n    File \\\"my_script.py\\\", line 1, in <module>\n      print(1/0)");
 					// callback("An error occured in your code.");
 				}
 				// callback(replacederrormsg);

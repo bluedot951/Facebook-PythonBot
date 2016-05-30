@@ -66,6 +66,7 @@ app.post('/webhook', function (req, res) {
 					request.post(
 					{
 						url:'https://api.github.com/gists',
+						qs: {access_token: process.env.GITHUB_ACCESS_TOKEN},
 						form: formData,
 						headers: {
 							'User-Agent': 'fbbot request'

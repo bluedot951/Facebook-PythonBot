@@ -59,7 +59,9 @@ app.post('/webhook', function (req, res) {
 					reploutput = reploutput.split("\"").join("\\\"");
 					// reploutput = "(";
 
-					var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
+					// var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
+					var formData = JSON.stringify({"description": "the description for this gist","public": true,"files": {"file1.txt": {"content": reploutput }}});
+
 					console.log("Sending formdata to github...");
 					console.log(formData);
 					console.log("end formdata");

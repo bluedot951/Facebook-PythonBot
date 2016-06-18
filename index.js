@@ -55,7 +55,7 @@ app.post('/webhook', function (req, res) {
 
 				if(output.length > 300) {
 					// console.log("LONGER THAN 300!!");
-					var reploutput = output.split("\n").join("\\n");
+					// var reploutput = output.split("\n").join("\\n");
 					reploutput = reploutput.split("\"").join("\\\"");
 					// reploutput = "(";
 

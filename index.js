@@ -28,125 +28,126 @@ app.get('/webhook', function (req, res) {;
 app.post('/webhook', function (req, res) {
 	var events = req.body.entry[0].messaging;
 	for (i = 0; i < events.length; i++) {
-		var event = events[i];
+		sendMessage(event.sender.id, event.message.text);
+		// var event = events[i];
 
-		if (event.message && event.message.text) {
-			// console.log("in webhook.event.message...");
+		// if (event.message && event.message.text) {
+		// 	// console.log("in webhook.event.message...");
 
-			// sendMessage(event.sender.id, "Echo: " + event.message);
+		// 	// sendMessage(event.sender.id, "Echo: " + event.message);
 
-			var infoArr = getCode(event.message.text);
-			var code = infoArr[0];
-			var args = infoArr[1];
+		// 	var infoArr = getCode(event.message.text);
+		// 	var code = infoArr[0];
+		// 	var args = infoArr[1];
 
-			// console.log("webhook...code: " + code);
-			// console.log("----webhook...code")
-			// console.log("webhook...args: ");
-			// console.log(args);
-			// console.log("----webhook...args")
+		// 	// console.log("webhook...code: " + code);
+		// 	// console.log("----webhook...code")
+		// 	// console.log("webhook...args: ");
+		// 	// console.log(args);
+		// 	// console.log("----webhook...args")
 
-			sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
-
-
-			evalCode(code, args, function processOutput(output) {
-				// console.log("webhook...output: " + output);
-				// console.log("---webhook...output");
+		// 	sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
 
 
-				if(output.length > 300) {
-					// console.log("LONGER THAN 300!!");
-					var reploutput = output.split("\n").join("\n");
-					reploutput = reploutput.split("\"").join("\\\"");
-					// reploutput = "(";
+		// 	evalCode(code, args, function processOutput(output) {
+		// 		// console.log("webhook...output: " + output);
+		// 		// console.log("---webhook...output");
 
-					// var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
-					var formData = JSON.stringify({"description": "the description for this gist","public": true,"files": {"file1.txt": {"content": reploutput }}});
 
-					console.log("Sending formdata to github...");
-					console.log(formData);
-					console.log("end formdata");
+		// 		if(output.length > 300) {
+		// 			// console.log("LONGER THAN 300!!");
+		// 			var reploutput = output.split("\n").join("\n");
+		// 			reploutput = reploutput.split("\"").join("\\\"");
+		// 			// reploutput = "(";
 
-					request.post(
-					{
-						url:'https://api.github.com/gists',
-						qs: {access_token: process.env.GITHUB_ACCESS_TOKEN},
-						form: formData,
-						headers: {
-							'User-Agent': 'fbbot request'
-						}
-					}, 
-					function(error,httpResponse,body){
-						// console.log("body below:")
-						// console.log(body);
-						// console.log("body above");
-						console.log(JSON.parse(body));
-						var myurl = JSON.parse(body).files['file1.txt']['raw_url'];
-						// console.log(myurl);
+		// 			// var formData = "{ \"description\": \"the description for this gist\", \"public\": true, \"files\": { \"file1.txt\": { \"content\": \"" + reploutput + "\" } } }";
+		// 			var formData = JSON.stringify({"description": "the description for this gist","public": true,"files": {"file1.txt": {"content": reploutput }}});
 
-						var shortOutput = output.substring(0, 100);
-						var shorturlform = "url=" + myurl;
+		// 			console.log("Sending formdata to github...");
+		// 			console.log(formData);
+		// 			console.log("end formdata");
 
-						request.post(
-						{
-							url:'https://git.io/',
-							form: shorturlform,
-						}, 
-						function(err,httpResponse,body){
-							var shorturl = httpResponse.caseless.dict.location;
+		// 			request.post(
+		// 			{
+		// 				url:'https://api.github.com/gists',
+		// 				qs: {access_token: process.env.GITHUB_ACCESS_TOKEN},
+		// 				form: formData,
+		// 				headers: {
+		// 					'User-Agent': 'fbbot request'
+		// 				}
+		// 			}, 
+		// 			function(error,httpResponse,body){
+		// 				// console.log("body below:")
+		// 				// console.log(body);
+		// 				// console.log("body above");
+		// 				console.log(JSON.parse(body));
+		// 				var myurl = JSON.parse(body).files['file1.txt']['raw_url'];
+		// 				// console.log(myurl);
+
+		// 				var shortOutput = output.substring(0, 100);
+		// 				var shorturlform = "url=" + myurl;
+
+		// 				request.post(
+		// 				{
+		// 					url:'https://git.io/',
+		// 					form: shorturlform,
+		// 				}, 
+		// 				function(err,httpResponse,body){
+		// 					var shorturl = httpResponse.caseless.dict.location;
 								
-							var toSend = shortOutput + "\nOutput clipped.\nFull output can be found at: " + shorturl;
+		// 					var toSend = shortOutput + "\nOutput clipped.\nFull output can be found at: " + shorturl;
 
-							sendMessage(event.sender.id, toSend);	
-							prevCode[event.sender.id + ""] = [code, args];
+		// 					sendMessage(event.sender.id, toSend);	
+		// 					prevCode[event.sender.id + ""] = [code, args];
 
-							sendStructuredMessage(event.sender.id);
+		// 					sendStructuredMessage(event.sender.id);
 
-						}
-						);
-
-
-					});
-
-				}
-
-				else {
-					sendMessage(event.sender.id, output);	
-					prevCode[event.sender.id + ""] = [code, args];
-
-					sendStructuredMessage(event.sender.id);
-				}
+		// 				}
+		// 				);
 
 
+		// 			});
 
-			});
-		}
-		else if (event.postback) {
-			// console.log("Postback received: " + JSON.stringify(event.postback));
-			// console.log(prevCode);
-			// console.log("postback: " + JSON.stringify(event.postback));
-			// console.log("payload: " + event.postback['payload']);
-			// console.log("in prevCode: " + prevCode[event.postback['payload']]);
-			infoArr = prevCode[event.postback['payload']];
+		// 		}
 
-			var code = infoArr[0];
-			var args = infoArr[1];
+		// 		else {
+		// 			sendMessage(event.sender.id, output);	
+		// 			prevCode[event.sender.id + ""] = [code, args];
 
-			sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
-
-			evalCode(code, args, function processOutput(output) {
-				// console.log("webhook...output: " + output);
-				// console.log("---webhook...output");
+		// 			sendStructuredMessage(event.sender.id);
+		// 		}
 
 
 
+		// 	});
+		// }
+		// else if (event.postback) {
+		// 	// console.log("Postback received: " + JSON.stringify(event.postback));
+		// 	// console.log(prevCode);
+		// 	// console.log("postback: " + JSON.stringify(event.postback));
+		// 	// console.log("payload: " + event.postback['payload']);
+		// 	// console.log("in prevCode: " + prevCode[event.postback['payload']]);
+		// 	infoArr = prevCode[event.postback['payload']];
 
-				sendMessage(event.sender.id, output);	
+		// 	var code = infoArr[0];
+		// 	var args = infoArr[1];
 
-				sendStructuredMessage(event.sender.id);
+		// 	sendMessage(event.sender.id, "Evaluating the following Python code:\n```python\n" + code);
 
-			});
+		// 	evalCode(code, args, function processOutput(output) {
+		// 		// console.log("webhook...output: " + output);
+		// 		// console.log("---webhook...output");
 
-		}
+
+
+
+		// 		sendMessage(event.sender.id, output);	
+
+		// 		sendStructuredMessage(event.sender.id);
+
+		// 	});
+
+		// }
 
 	}
 	res.sendStatus(200);

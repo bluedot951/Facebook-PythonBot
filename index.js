@@ -33,7 +33,7 @@ app.post('/webhook', function (req, res) {
 		if (event.message && event.message.text) {
 			// console.log("in webhook.event.message...");
 
-			if(!isNaN(event.message.text)) {
+			if(isNaN(event.message.text)) {
 				sendMessage(event.sender.id, event.message.text + " is not a number!");
 			}
 			else if(parseInt(event.message.text) < 0) {

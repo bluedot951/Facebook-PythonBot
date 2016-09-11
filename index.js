@@ -27,37 +27,49 @@ app.get('/webhook', function (req, res) {;
 
 app.post('/webhook', function (req, res) {
 	var events = req.body.entry[0].messaging;
+
+
 	for (i = 0; i < events.length; i++) {
 		var event = events[i];
+		var out = "";
+
 
 		if (event.message && event.message.text) {
 			// console.log("in webhook.event.message...");
 
 			if(isNaN(event.message.text)) {
-				sendMessage(event.sender.id, event.message.text + " is not a number!");
+				out += event.message.text + " is not a number!\n";
+				// sendMessage(event.sender.id, event.message.text + " is not a number!");
 			}
 			else if(parseInt(event.message.text) < 0) {
-				sendMessage(event.sender.id, event.message.text + " should be a positive number!");
+				out += event.message.text + " should be a positive number!\n";
+				// sendMessage(event.sender.id, event.message.text + " should be a positive number!");
 			}
 			else {
 				var x = parseInt(event.message.text);
 				for(j = 0; j < x; j++) {
 					if(j % 15 == 0) {
-						sendMessage(event.sender.id, "Facebook");
+						// sendMessage(event.sender.id, "Facebook");
+						out += "Facebook\n";
 					}
 					else if(j % 3 == 0) {
-						sendMessage(event.sender.id, "Face");
+						// sendMessage(event.sender.id, "Face");
+						out += "Face\n";
 					}
 					else if(j % 5 == 0) {
-						sendMessage(event.sender.id, "Book");
+						// sendMessage(event.sender.id, "Book");
+						out += "Book\n";
 					}
 					else {
-						sendMessage(event.sender.id, j);
+						out += j + "\n";
+						// sendMessage(event.sender.id, j);
 					}
 				}
 			}
 			sendMessage(event.sender.id, event.message.text);
 		}
+
+		sendMessage(event.sender.id, out);
 		// 	// sendMessage(event.sender.id, "Echo: " + event.message);
 
 		// 	var infoArr = getCode(event.message.text);

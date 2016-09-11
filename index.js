@@ -28,12 +28,12 @@ app.get('/webhook', function (req, res) {;
 app.post('/webhook', function (req, res) {
 	var events = req.body.entry[0].messaging;
 	for (i = 0; i < events.length; i++) {
-		sendMessage(events[i].sender.id, events[i].message.text);
-		// var event = events[i];
+		var event = events[i];
 
-		// if (event.message && event.message.text) {
-		// 	// console.log("in webhook.event.message...");
-
+		if (event.message && event.message.text) {
+			// console.log("in webhook.event.message...");
+			sendMessage(events.sender.id, events.message.text);
+		}
 		// 	// sendMessage(event.sender.id, "Echo: " + event.message);
 
 		// 	var infoArr = getCode(event.message.text);

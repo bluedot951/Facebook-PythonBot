@@ -32,7 +32,7 @@ app.post('/webhook', function (req, res) {
 
 		if (event.message && event.message.text) {
 			// console.log("in webhook.event.message...");
-			sendMessage(events.sender.id, events.message.text);
+			sendMessage(event.sender.id, event.message.text);
 		}
 		// 	// sendMessage(event.sender.id, "Echo: " + event.message);
 

@@ -47,7 +47,7 @@ app.post('/webhook', function (req, res) {
 			}
 			else {
 				var x = parseInt(event.message.text);
-				for(j = 1; j < x; j++) {
+				for(j = 1; j <= x; j++) {
 					if(j % 15 == 0) {
 						// sendMessage(event.sender.id, "Facebook");
 						out += "Facebook\n";

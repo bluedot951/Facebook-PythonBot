@@ -32,6 +32,30 @@ app.post('/webhook', function (req, res) {
 
 		if (event.message && event.message.text) {
 			// console.log("in webhook.event.message...");
+
+			if(!isNaN(event.message.text)) {
+				sendMessage(event.sender.id, event.message.text + " is not a number!");
+			}
+			else if(parseInt(event.message.text) < 0) {
+				sendMessage(event.sender.id, event.message.text + " should be a positive number!");
+			}
+			else {
+				int x = parseInt(event.message.text);
+				for(j = 0; j < x; j++) {
+					if(j % 15 == 0) {
+						sendMessage(event.sender.id, "Facebook");
+					}
+					else if(j % 3 == 0) {
+						sendMessage(event.sender.id, "Face");
+					}
+					else if(j % 5 == 0) {
+						sendMessage(event.sender.id, "Book");
+					}
+					else {
+						sendMessage(event.sender.id, j);
+					}
+				}
+			}
 			sendMessage(event.sender.id, event.message.text);
 		}
 		// 	// sendMessage(event.sender.id, "Echo: " + event.message);

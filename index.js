@@ -40,7 +40,7 @@ app.post('/webhook', function (req, res) {
 				sendMessage(event.sender.id, event.message.text + " should be a positive number!");
 			}
 			else {
-				int x = parseInt(event.message.text);
+				var x = parseInt(event.message.text);
 				for(j = 0; j < x; j++) {
 					if(j % 15 == 0) {
 						sendMessage(event.sender.id, "Facebook");
